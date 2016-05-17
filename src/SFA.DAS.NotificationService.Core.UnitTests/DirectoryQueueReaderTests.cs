@@ -8,14 +8,14 @@ using SFA.DAS.NotificationService.Core.Messages;
 namespace SFA.DAS.NotificationService.Core.UnitTests
 {
     [TestFixture]
-    public class DirectoryQueueWriterTests
+    public class DirectoryQueueReaderTests
     {
         private string _folderName;
 
         [SetUp]
         public void Setup()
         {
-            _folderName = Path.Combine("c:\\temp\\DirectoryQueueWriterTests", Guid.NewGuid().ToString());
+            _folderName = Path.Combine("c:\\temp\\DirectoryQueueReaderTests", Guid.NewGuid().ToString());
 
             Directory.CreateDirectory(_folderName);
         }
@@ -27,9 +27,9 @@ namespace SFA.DAS.NotificationService.Core.UnitTests
         }
 
         [Test]
-        public void CreateMessage()
+        public void ReadMessage()
         {
-            var writer = new DirectoryQueueWriter(_folderName);
+            var reader = new DirectoryQueueReader(_folderName);
 
             var sentMessage = new SendEmailMessage
             {
@@ -39,22 +39,29 @@ namespace SFA.DAS.NotificationService.Core.UnitTests
                 Message = "My message"
             };
 
-            writer.Write(sentMessage);
+            CreateFile(sentMessage);
 
-            var files = Directory.GetFiles(_folderName);
-
-            Assert.That(files.Length, Is.EqualTo(1));
-            
-            var fileinfo = new FileInfo(files[0]);
-
-            Assert.That(fileinfo.Name.StartsWith("SendEmailMessage_"));
-
-            var message = JsonConvert.DeserializeObject<SendEmailMessage>(File.ReadAllText(files[0]));
+            var message = reader.Read();
 
             Assert.That(message.FromEmail, Is.EqualTo(sentMessage.FromEmail));
             Assert.That(message.ToEmail, Is.EqualTo(sentMessage.ToEmail));
             Assert.That(message.Subject, Is.EqualTo(sentMessage.Subject));
             Assert.That(message.Message, Is.EqualTo(sentMessage.Message));
+
+            Assert.That(Directory.GetFiles(_folderName).Length, Is.EqualTo(0));
+        }
+
+        private string CreateFile(SendEmailMessage message)
+        {
+            var guid = Guid.NewGuid();
+
+            var filename = Path.Combine(_folderName, $"SendEmailMessage_{guid}.txt");
+
+            var contents = JsonConvert.SerializeObject(message);
+
+            File.WriteAllText(filename, contents);
+
+            return guid.ToString();
         }
     }
 }

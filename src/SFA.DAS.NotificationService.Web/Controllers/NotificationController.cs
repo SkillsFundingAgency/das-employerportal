@@ -22,20 +22,15 @@ namespace SFA.DAS.NotificationService.Web.Controllers
 
         public HttpResponseMessage Post(EmailNotification notification)
         {
-            _queueWriter.Write(MapFrom(notification));
-
-            return new HttpResponseMessage(HttpStatusCode.OK);
-        }
-
-        private SendEmailMessage MapFrom(EmailNotification notification)
-        {
-            return new SendEmailMessage
+            _queueWriter.Write(new SendEmailMessage
             {
                 FromEmail = notification.FromEmail,
                 ToEmail = notification.ToEmail,
                 Subject = notification.Subject,
                 Message = notification.Message
-            };
+            });
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }
 }
