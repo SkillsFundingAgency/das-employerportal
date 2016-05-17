@@ -2,6 +2,7 @@
 {
     public enum MessageStatus
     {
-        Created
+        Received,
+        Processed
     }
 }

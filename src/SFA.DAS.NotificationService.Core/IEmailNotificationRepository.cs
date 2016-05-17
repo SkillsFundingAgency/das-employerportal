@@ -5,7 +5,7 @@ namespace SFA.DAS.NotificationService.Core
 {
     public interface IEmailNotificationRepository
     {
-        Task<string> Create(SendEmailMessage message);
-        Task<SendEmailMessage> Get(string userId, string messageId);
+        Task<string> CreateAsync(SendEmailMessage message);
+        Task<SendEmailMessage> GetAsync(string userId, string messageId);
     }
 }

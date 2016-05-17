@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -28,10 +29,12 @@ namespace SFA.DAS.NotificationService.Web.Controllers
                 FromEmail = notification.FromEmail,
                 ToEmail = notification.ToEmail,
                 Subject = notification.Subject,
-                Message = notification.Message
+                Message = notification.Message,
+                Timestamp = DateTime.Now,
+                Status = MessageStatus.Received
             };
 
-            _emailNotificationRepository.Create(message);
+            await _emailNotificationRepository.CreateAsync(message);
 
             await _messagingService.PublishAsync(message);
 

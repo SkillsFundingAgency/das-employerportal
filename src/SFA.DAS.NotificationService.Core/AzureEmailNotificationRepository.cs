@@ -10,7 +10,9 @@ namespace SFA.DAS.NotificationService.Core
 {
     public class AzureEmailNotificationRepository : IEmailNotificationRepository
     {
-        private CloudStorageAccount _storageAccount;
+        private const string TableName = "SentEmailMessages";
+
+        private readonly CloudStorageAccount _storageAccount;
 
         public AzureEmailNotificationRepository() 
             : this(CloudConfigurationManager.GetSetting("StorageConnectionString"))
@@ -22,13 +24,13 @@ namespace SFA.DAS.NotificationService.Core
             _storageAccount = CloudStorageAccount.Parse(storageConnectionString);
         }
 
-        public async Task<string> Create(SendEmailMessage message)
+        public async Task<string> CreateAsync(SendEmailMessage message)
         {
             var messageId = Guid.NewGuid().ToString();
 
             var tableClient = _storageAccount.CreateCloudTableClient();
 
-            var table = tableClient.GetTableReference("SentEmailMessages");
+            var table = tableClient.GetTableReference(TableName);
 
             var entity = new EmailMessageEntity(message.UserId, messageId)
             {
@@ -41,10 +43,10 @@ namespace SFA.DAS.NotificationService.Core
             return messageId;
         }
 
-        public async Task<SendEmailMessage> Get(string userId, string messageId)
+        public async Task<SendEmailMessage> GetAsync(string userId, string messageId)
         {
             var tableClient = _storageAccount.CreateCloudTableClient();
-            var table = tableClient.GetTableReference("SentEmailMessages");
+            var table = tableClient.GetTableReference(TableName);
 
             var tableOperation = TableOperation.Retrieve<EmailMessageEntity>(userId, messageId);
             var result = await table.ExecuteAsync(tableOperation);
