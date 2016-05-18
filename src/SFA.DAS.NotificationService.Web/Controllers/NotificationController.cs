@@ -7,38 +7,30 @@ using SFA.DAS.Messaging;
 using SFA.DAS.NotificationService.Core;
 using SFA.DAS.NotificationService.Core.Messages;
 using SFA.DAS.NotificationService.Web.Models;
+using SFA.DAS.NotificationService.Web.Orchestrators;
+using SFA.DAS.TimeProvider;
 
 namespace SFA.DAS.NotificationService.Web.Controllers
 {
     public class NotificationController : ApiController
     {
-        private readonly MessagingService _messagingService;
-        private readonly IEmailNotificationRepository _emailNotificationRepository;
+        private readonly INotificationOrchestrator _orchestrator;
 
-        public NotificationController(MessagingService messagingService, IEmailNotificationRepository emailNotificationRepository)
+        public NotificationController(INotificationOrchestrator orchestrator)
         {
-            _messagingService = messagingService;
-            _emailNotificationRepository = emailNotificationRepository;
+            if (orchestrator == null)
+                throw new ArgumentNullException(nameof(orchestrator));
+            _orchestrator = orchestrator;
         }
 
         public async Task<HttpResponseMessage> Post(EmailNotification notification)
         {
-            var message = new SendEmailMessage
+            return await Task.Run<HttpResponseMessage>(() =>
             {
-                UserId = notification.UserId,
-                FromEmail = notification.FromEmail,
-                ToEmail = notification.ToEmail,
-                Subject = notification.Subject,
-                Message = notification.Message,
-                Timestamp = DateTime.Now,
-                Status = MessageStatus.Received
-            };
+                var response = _orchestrator.Post(notification);
 
-            await _emailNotificationRepository.CreateAsync(message);
-
-            await _messagingService.PublishAsync(message);
-
-            return new HttpResponseMessage(HttpStatusCode.OK);
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            });
         }
     }
 }

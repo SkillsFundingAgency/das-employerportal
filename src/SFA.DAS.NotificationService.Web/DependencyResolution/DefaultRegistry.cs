@@ -15,14 +15,12 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.Configuration;
-using System.IO;
 using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.Messaging;
 using SFA.DAS.Messaging.FileSystem;
 using SFA.DAS.NotificationService.Core;
+using SFA.DAS.NotificationService.Web.Orchestrators;
 
 namespace SFA.DAS.NotificationService.Web.DependencyResolution {
     using StructureMap.Configuration.DSL;
@@ -43,6 +41,7 @@ namespace SFA.DAS.NotificationService.Web.DependencyResolution {
             For<IMessageSubSystem>().Use<FileSystemMessageSubSystem>();
             For<MessagingService>().Use<MessagingService>();
             For<IEmailNotificationRepository>().Use<AzureEmailNotificationRepository>();
+            For<INotificationOrchestrator>().Use<NotificationOrchestrator>();
         }
 
         #endregion
