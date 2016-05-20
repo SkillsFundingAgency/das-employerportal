@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 using Newtonsoft.Json;
+using SFA.DAS.NotificationService.Application.DataEntities;
+using SFA.DAS.NotificationService.Application.Interfaces;
 using SFA.DAS.NotificationService.Application.Messages;
 
 namespace SFA.DAS.NotificationService.Application
@@ -24,7 +25,7 @@ namespace SFA.DAS.NotificationService.Application
             _storageAccount = CloudStorageAccount.Parse(storageConnectionString);
         }
 
-        public async Task<string> CreateAsync(SendEmailMessage message)
+        public string Create(SendEmailData message)
         {
             var messageId = Guid.NewGuid().ToString();
 
@@ -38,18 +39,18 @@ namespace SFA.DAS.NotificationService.Application
             };
             var insertOperation = TableOperation.Insert(entity);
 
-            await table.ExecuteAsync(insertOperation);
+            table.Execute(insertOperation);
 
             return messageId;
         }
 
-        public async Task<SendEmailMessage> GetAsync(string userId, string messageId)
+        public SendEmailMessage Get(string userId, string messageId)
         {
             var tableClient = _storageAccount.CreateCloudTableClient();
             var table = tableClient.GetTableReference(TableName);
 
             var tableOperation = TableOperation.Retrieve<EmailMessageEntity>(userId, messageId);
-            var result = await table.ExecuteAsync(tableOperation);
+            var result = table.Execute(tableOperation);
 
             var configItem = (EmailMessageEntity)result.Result;
             return configItem == null ? null : JsonConvert.DeserializeObject<SendEmailMessage>(configItem.Data);

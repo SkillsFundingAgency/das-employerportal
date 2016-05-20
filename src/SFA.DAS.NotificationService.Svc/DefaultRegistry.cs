@@ -1,6 +1,7 @@
 ﻿using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.NotificationService.Application;
+using SFA.DAS.NotificationService.Application.Interfaces;
 using StructureMap.Configuration.DSL;
 
 namespace SFA.DAS.NotificationService.Worker

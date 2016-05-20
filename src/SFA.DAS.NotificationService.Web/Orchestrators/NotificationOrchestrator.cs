@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using MediatR;
 using SFA.DAS.Messaging;
 using SFA.DAS.NotificationService.Application;
+using SFA.DAS.NotificationService.Application.Commands.SendEmail;
+using SFA.DAS.NotificationService.Application.Interfaces;
 using SFA.DAS.NotificationService.Application.Messages;
 using SFA.DAS.NotificationService.Web.Core;
 using SFA.DAS.NotificationService.Web.Models;
@@ -11,35 +14,25 @@ namespace SFA.DAS.NotificationService.Web.Orchestrators
 {
     public class NotificationOrchestrator : OrchestratorBase, INotificationOrchestrator
     {
-        private readonly MessagingService _messagingService;
-        private readonly IEmailNotificationRepository _emailNotificationRepository;
+        private readonly IMediator _mediator;
 
-        public NotificationOrchestrator(MessagingService messagingService, IEmailNotificationRepository emailNotificationRepository)
+        public NotificationOrchestrator(IMediator mediator)
         {
-            if (messagingService == null)
-                throw new ArgumentNullException(nameof(messagingService));
-            if (emailNotificationRepository == null)
-                throw new ArgumentNullException(nameof(emailNotificationRepository));
-            _messagingService = messagingService;
-            _emailNotificationRepository = emailNotificationRepository;
+            if (mediator == null)
+                throw new ArgumentNullException(nameof(mediator));
+            _mediator = mediator;
         }
 
-        public async Task<OrchestratorResponse> Post(EmailNotification notification)
+        public OrchestratorResponse Post(EmailNotification notification)
         {
-            var message = new SendEmailMessage
+            _mediator.Send(new SendEmailCommand
             {
                 UserId = notification.UserId,
+                ToEmail = notification.ToEmail, 
                 FromEmail = notification.FromEmail,
-                ToEmail = notification.ToEmail,
                 Subject = notification.Subject,
-                Message = notification.Message,
-                Timestamp = DateTimeProvider.Current.UtcNow,
-                Status = MessageStatus.Received
-            };
-
-            await _emailNotificationRepository.CreateAsync(message);
-
-            await _messagingService.PublishAsync(message);
+                Message = notification.Message
+            });
 
 
             return GetOrchestratorResponse(NotificationOrchestratorCodes.Post.Success);

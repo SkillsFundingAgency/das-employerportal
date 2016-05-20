@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using SFA.DAS.NotificationService.Application;
+using SFA.DAS.NotificationService.Application.Interfaces;
 using StructureMap;
 
 namespace SFA.DAS.NotificationService.Worker

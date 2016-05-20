@@ -15,12 +15,15 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using FluentValidation;
+using MediatR;
 using Microsoft.WindowsAzure;
 using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.Messaging;
 using SFA.DAS.Messaging.FileSystem;
 using SFA.DAS.NotificationService.Application;
+using SFA.DAS.NotificationService.Application.Interfaces;
 using SFA.DAS.NotificationService.Web.Orchestrators;
 using StructureMap.Configuration.DSL;
 
@@ -35,7 +38,15 @@ namespace SFA.DAS.NotificationService.Web.DependencyResolution {
                 scan => {
                     scan.WithDefaultConventions();
                     scan.With(new ControllerConvention());
+                    scan.AssemblyContainingType<IEmailNotificationRepository>();
+                    scan.ConnectImplementationsToTypesClosing(typeof(IRequestHandler<,>));
+                    scan.ConnectImplementationsToTypesClosing(typeof(IAsyncRequestHandler<,>));
+                    scan.ConnectImplementationsToTypesClosing(typeof(INotificationHandler<>));
+                    scan.ConnectImplementationsToTypesClosing(typeof(IAsyncNotificationHandler<>));
+                    scan.ConnectImplementationsToTypesClosing(typeof(AbstractValidator<>));
                 });
+            For<SingleInstanceFactory>().Use<SingleInstanceFactory>(ctx => t => ctx.GetInstance(t));
+            For<MultiInstanceFactory>().Use<MultiInstanceFactory>(ctx => t => ctx.GetAllInstances(t));
             For<IConfigurationRepository>().Use<AzureTableStorageConfigurationRepository>().Ctor<string>().Is("UseDevelopmentStorage=true");
             var configurationService = new ConfigurationService(new AzureTableStorageConfigurationRepository("UseDevelopmentStorage=true"),
                 new ConfigurationOptions("SFA.DAS.NotificationService.Web", null, "1.0"));
@@ -44,6 +55,7 @@ namespace SFA.DAS.NotificationService.Web.DependencyResolution {
             For<MessagingService>().Use<MessagingService>();
             For<IEmailNotificationRepository>().Use<AzureEmailNotificationRepository>().Ctor<string>().Is("UseDevelopmentStorage=true");
             For<INotificationOrchestrator>().Use<NotificationOrchestrator>();
+            For<IMediator>().Use<Mediator>();
         }
 
         #endregion
