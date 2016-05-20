@@ -1,0 +1,23 @@
+﻿using SFA.DAS.Configuration;
+using SFA.DAS.Configuration.AzureTableStorage;
+using SFA.DAS.NotificationService.Core;
+using StructureMap.Configuration.DSL;
+
+namespace SFA.DAS.NotificationService.Svc
+{
+    public class DefaultRegistry : Registry
+    {
+        public DefaultRegistry()
+        {
+            Scan(
+                scan => {
+                    scan.WithDefaultConventions();
+                });
+            For<IConfigurationRepository>().Use<AzureTableStorageConfigurationRepository>().Ctor<string>().Is("UseDevelopmentStorage=true");
+            var configurationService = new ConfigurationService(new AzureTableStorageConfigurationRepository("UseDevelopmentStorage=true"),
+                new ConfigurationOptions("SFA.DAS.NotificationService.Svc", null, "1.0"));
+            For<IConfigurationService>().Use(configurationService);
+            For<IEmailNotificationRepository>().Use<AzureEmailNotificationRepository>().Ctor<string>().Is("UseDevelopmentStorage=true");
+        }
+    }
+}

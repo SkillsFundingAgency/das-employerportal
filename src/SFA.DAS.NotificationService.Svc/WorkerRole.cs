@@ -9,6 +9,8 @@ using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Diagnostics;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Microsoft.WindowsAzure.Storage;
+using SFA.DAS.NotificationService.Core;
+using StructureMap;
 
 namespace SFA.DAS.NotificationService.Svc
 {
@@ -16,6 +18,7 @@ namespace SFA.DAS.NotificationService.Svc
     {
         private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         private readonly ManualResetEvent runCompleteEvent = new ManualResetEvent(false);
+        private Container _container;
 
         public override void Run()
         {
@@ -33,6 +36,10 @@ namespace SFA.DAS.NotificationService.Svc
 
         public override bool OnStart()
         {
+            var registry = new DefaultRegistry();
+
+            _container = new Container(registry);
+
             // Set the maximum number of concurrent connections
             ServicePointManager.DefaultConnectionLimit = 12;
 
@@ -64,6 +71,14 @@ namespace SFA.DAS.NotificationService.Svc
             while (!cancellationToken.IsCancellationRequested)
             {
                 Trace.TraceInformation("Working");
+
+                var repository = _container.GetInstance<IEmailNotificationRepository>();
+
+                //Get emails requests
+                //foreach
+                //  Send email
+                //  Delete request
+
                 await Task.Delay(1000);
             }
         }
