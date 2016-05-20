@@ -30,10 +30,7 @@ namespace SFA.DAS.NotificationService.Application.Commands.SendEmail
             _emailNotificationRepository.Create(new SendEmailData
             {
                 UserId = message.UserId,
-                ToEmail = message.ToEmail,
-                FromEmail = message.FromEmail,
-                Subject = message.Subject,
-                Message = message.Message,
+                Data = message.Data,
                 Timestamp = DateTimeProvider.Current.UtcNow,
                 Status = MessageStatus.Received
             });

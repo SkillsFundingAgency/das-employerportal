@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MediatR;
 using SFA.DAS.Messaging;
@@ -28,13 +29,9 @@ namespace SFA.DAS.NotificationService.Web.Orchestrators
             _mediator.Send(new SendEmailCommand
             {
                 UserId = notification.UserId,
-                ToEmail = notification.ToEmail, 
-                FromEmail = notification.FromEmail,
-                Subject = notification.Subject,
-                Message = notification.Message
+                Data = notification.Data
             });
-
-
+            
             return GetOrchestratorResponse(NotificationOrchestratorCodes.Post.Success);
         }
     }
