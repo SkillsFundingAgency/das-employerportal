@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using StructureMap;
 
-namespace SFA.DAS.NotificationService.Svc.UnitTests
+namespace SFA.DAS.NotificationService.Worker.UnitTests
 {
     [TestFixture]
     public class RegistryTests

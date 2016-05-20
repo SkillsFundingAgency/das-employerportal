@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SFA.DAS.NotificationService.Core.Messages
+namespace SFA.DAS.NotificationService.Application.Messages
 {
     public class SendEmailMessage
     {

@@ -1,18 +1,12 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.WindowsAzure;
-using Microsoft.WindowsAzure.Diagnostics;
 using Microsoft.WindowsAzure.ServiceRuntime;
-using Microsoft.WindowsAzure.Storage;
-using SFA.DAS.NotificationService.Core;
+using SFA.DAS.NotificationService.Application;
 using StructureMap;
 
-namespace SFA.DAS.NotificationService.Svc
+namespace SFA.DAS.NotificationService.Worker
 {
     public class WorkerRole : RoleEntryPoint
     {

@@ -4,9 +4,9 @@ using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 using Newtonsoft.Json;
-using SFA.DAS.NotificationService.Core.Messages;
+using SFA.DAS.NotificationService.Application.Messages;
 
-namespace SFA.DAS.NotificationService.Core
+namespace SFA.DAS.NotificationService.Application
 {
     public class AzureEmailNotificationRepository : IEmailNotificationRepository
     {

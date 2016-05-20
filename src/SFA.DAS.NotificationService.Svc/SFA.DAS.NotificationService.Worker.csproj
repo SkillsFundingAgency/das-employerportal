@@ -8,8 +8,8 @@
     <ProjectGuid>{8DDEA855-5B98-4D32-8A7C-C23C0814BDFC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SFA.DAS.NotificationService.Svc</RootNamespace>
-    <AssemblyName>SFA.DAS.NotificationService.Svc</AssemblyName>
+    <RootNamespace>SFA.DAS.NotificationService.Worker</RootNamespace>
+    <AssemblyName>SFA.DAS.NotificationService.Worker</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <RoleType>Worker</RoleType>
@@ -105,9 +105,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SFA.DAS.NotificationService.Core\SFA.DAS.NotificationService.Core.csproj">
+    <ProjectReference Include="..\SFA.DAS.NotificationService.Core\SFA.DAS.NotificationService.Application.csproj">
       <Project>{A7D9A608-913C-496D-ACED-4A6D7F2C2758}</Project>
-      <Name>SFA.DAS.NotificationService.Core</Name>
+      <Name>SFA.DAS.NotificationService.Application</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

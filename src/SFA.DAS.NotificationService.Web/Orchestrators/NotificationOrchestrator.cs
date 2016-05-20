@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using SFA.DAS.Messaging;
-using SFA.DAS.NotificationService.Core;
-using SFA.DAS.NotificationService.Core.Messages;
+using SFA.DAS.NotificationService.Application;
+using SFA.DAS.NotificationService.Application.Messages;
 using SFA.DAS.NotificationService.Web.Core;
 using SFA.DAS.NotificationService.Web.Models;
 using SFA.DAS.TimeProvider;

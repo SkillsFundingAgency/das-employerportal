@@ -1,9 +1,9 @@
 ﻿using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
-using SFA.DAS.NotificationService.Core;
+using SFA.DAS.NotificationService.Application;
 using StructureMap.Configuration.DSL;
 
-namespace SFA.DAS.NotificationService.Svc
+namespace SFA.DAS.NotificationService.Worker
 {
     public class DefaultRegistry : Registry
     {

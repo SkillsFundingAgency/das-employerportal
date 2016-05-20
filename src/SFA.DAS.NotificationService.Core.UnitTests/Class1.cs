@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace SFA.DAS.NotificationService.Core.UnitTests
+namespace SFA.DAS.NotificationService.Application.UnitTests
 {
     [TestFixture]
     public class Class1

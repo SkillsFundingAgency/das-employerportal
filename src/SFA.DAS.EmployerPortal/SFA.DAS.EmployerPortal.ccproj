@@ -45,13 +45,12 @@
       <RoleName>SFA.DAS.EmployerPortal.Web</RoleName>
       <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
-    <ProjectReference Include="..\SFA.DAS.NotificationService.Svc\SFA.DAS.NotificationService.Svc.csproj">
-      <Name>SFA.DAS.NotificationService.Svc</Name>
+    <ProjectReference Include="..\SFA.DAS.NotificationService.Svc\SFA.DAS.NotificationService.Worker.csproj">
+      <Name>SFA.DAS.NotificationService.Worker</Name>
       <Project>{8ddea855-5b98-4d32-8a7c-c23c0814bdfc}</Project>
       <Private>True</Private>
       <RoleType>Worker</RoleType>
-      <RoleName>SFA.DAS.NotificationService.Svc</RoleName>
-      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
+      <RoleName>SFA.DAS.NotificationService.Worker</RoleName>
     </ProjectReference>
     <ProjectReference Include="..\SFA.DAS.NotificationService.Web\SFA.DAS.NotificationService.Web.csproj">
       <Name>SFA.DAS.NotificationService.Web</Name>
@@ -64,12 +63,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SFA.DAS.EmployerPortal.WebContent\" />
-    <Folder Include="SFA.DAS.NotificationService.SvcContent\" />
+    <Folder Include="SFA.DAS.NotificationService.WorkerContent" />
     <Folder Include="SFA.DAS.NotificationService.WebContent\" />
   </ItemGroup>
   <ItemGroup>
     <DiagnosticsConfiguration Include="SFA.DAS.EmployerPortal.WebContent\diagnostics.wadcfgx" />
-    <DiagnosticsConfiguration Include="SFA.DAS.NotificationService.SvcContent\diagnostics.wadcfgx" />
+    <DiagnosticsConfiguration Include="SFA.DAS.NotificationService.WorkerContent\diagnostics.wadcfgx" />
     <DiagnosticsConfiguration Include="SFA.DAS.NotificationService.WebContent\diagnostics.wadcfgx" />
   </ItemGroup>
   <!-- Import the target files for this project template -->

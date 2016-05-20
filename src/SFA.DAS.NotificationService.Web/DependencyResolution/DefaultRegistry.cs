@@ -20,7 +20,7 @@ using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.Messaging;
 using SFA.DAS.Messaging.FileSystem;
-using SFA.DAS.NotificationService.Core;
+using SFA.DAS.NotificationService.Application;
 using SFA.DAS.NotificationService.Web.Orchestrators;
 using StructureMap.Configuration.DSL;
 

@@ -387,9 +387,9 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SFA.DAS.NotificationService.Core\SFA.DAS.NotificationService.Core.csproj">
+    <ProjectReference Include="..\SFA.DAS.NotificationService.Core\SFA.DAS.NotificationService.Application.csproj">
       <Project>{a7d9a608-913c-496d-aced-4a6d7f2c2758}</Project>
-      <Name>SFA.DAS.NotificationService.Core</Name>
+      <Name>SFA.DAS.NotificationService.Application</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
