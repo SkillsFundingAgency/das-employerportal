@@ -3,12 +3,8 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using SFA.DAS.Messaging;
-using SFA.DAS.NotificationService.Core;
-using SFA.DAS.NotificationService.Core.Messages;
 using SFA.DAS.NotificationService.Web.Models;
 using SFA.DAS.NotificationService.Web.Orchestrators;
-using SFA.DAS.TimeProvider;
 
 namespace SFA.DAS.NotificationService.Web.Controllers
 {
