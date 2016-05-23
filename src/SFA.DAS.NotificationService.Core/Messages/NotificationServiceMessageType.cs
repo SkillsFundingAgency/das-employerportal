@@ -1,7 +1,10 @@
-﻿namespace SFA.DAS.NotificationService.Application.Messages
+﻿using System.ComponentModel;
+
+namespace SFA.DAS.NotificationService.Application.Messages
 {
     public enum NotificationServiceMessageType
     {
+        [Description("SendEmailMessage")]
         SendEmailMessage
     }
 }

@@ -38,7 +38,7 @@ namespace SFA.DAS.NotificationService.Web.DependencyResolution {
                 scan => {
                     scan.WithDefaultConventions();
                     scan.With(new ControllerConvention());
-                    scan.AssemblyContainingType<IEmailNotificationRepository>();
+                    scan.AssemblyContainingType<IMessageNotificationRepository>();
                     scan.ConnectImplementationsToTypesClosing(typeof(IRequestHandler<,>));
                     scan.ConnectImplementationsToTypesClosing(typeof(IAsyncRequestHandler<,>));
                     scan.ConnectImplementationsToTypesClosing(typeof(INotificationHandler<>));
@@ -53,7 +53,7 @@ namespace SFA.DAS.NotificationService.Web.DependencyResolution {
             For<IConfigurationService>().Use(configurationService);
             For<IMessageSubSystem>().Use(() => new FileSystemMessageSubSystem());
             For<MessagingService>().Use<MessagingService>();
-            For<IEmailNotificationRepository>().Use<AzureEmailNotificationRepository>().Ctor<string>().Is("UseDevelopmentStorage=true");
+            For<IMessageNotificationRepository>().Use<AzureEmailNotificationRepository>().Ctor<string>().Is("UseDevelopmentStorage=true");
             For<INotificationOrchestrator>().Use<NotificationOrchestrator>();
             For<IMediator>().Use<Mediator>();
         }

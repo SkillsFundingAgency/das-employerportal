@@ -1,15 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using MediatR;
-using SFA.DAS.Messaging;
-using SFA.DAS.NotificationService.Application;
-using SFA.DAS.NotificationService.Application.Commands.SendEmail;
-using SFA.DAS.NotificationService.Application.Interfaces;
-using SFA.DAS.NotificationService.Application.Messages;
+using SFA.DAS.NotificationService.Application.Commands.SendMessage;
 using SFA.DAS.NotificationService.Web.Core;
-using SFA.DAS.NotificationService.Web.Models;
-using SFA.DAS.TimeProvider;
 
 namespace SFA.DAS.NotificationService.Web.Orchestrators
 {
@@ -24,12 +17,11 @@ namespace SFA.DAS.NotificationService.Web.Orchestrators
             _mediator = mediator;
         }
 
-        public OrchestratorResponse Post(EmailNotification notification)
+        public OrchestratorResponse Post(Dictionary<string, string> notification)
         {
-            _mediator.Send(new SendEmailCommand
+            _mediator.Send(new SendMessageCommand
             {
-                UserId = notification.UserId,
-                Data = notification.Data
+                Data = notification
             });
             
             return GetOrchestratorResponse(NotificationOrchestratorCodes.Post.Success);

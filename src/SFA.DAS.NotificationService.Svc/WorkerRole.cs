@@ -67,7 +67,7 @@ namespace SFA.DAS.NotificationService.Worker
             {
                 Trace.TraceInformation("Working");
 
-                var repository = _container.GetInstance<IEmailNotificationRepository>();
+                var repository = _container.GetInstance<IMessageNotificationRepository>();
 
                 //Get emails requests
                 //foreach

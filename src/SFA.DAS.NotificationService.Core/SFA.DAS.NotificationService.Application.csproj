@@ -90,21 +90,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AzureEmailNotificationRepository.cs" />
-    <Compile Include="Commands\SendEmail\SendEmailCommand.cs" />
-    <Compile Include="Commands\SendEmail\SendEmailCommandHandler.cs" />
-    <Compile Include="Commands\SendEmail\SendEmailCommandValidator.cs" />
-    <Compile Include="DataEntities\SendEmailData.cs" />
+    <Compile Include="Commands\SendMessage\SendMessageCommand.cs" />
+    <Compile Include="Commands\SendMessage\SendMessageCommandHandler.cs" />
+    <Compile Include="Commands\SendMessage\SendMessageCommandValidator.cs" />
+    <Compile Include="DataEntities\MessageData.cs" />
     <Compile Include="EmailMessageEntity.cs" />
     <Compile Include="Exceptions\CustomException.cs" />
     <Compile Include="Exceptions\CustomValidationException.cs" />
-    <Compile Include="Interfaces\IEmailNotificationRepository.cs" />
+    <Compile Include="Interfaces\IMessageNotificationRepository.cs" />
     <Compile Include="Messages\MessageStatus.cs" />
     <Compile Include="Messages\NotificationServiceMessageType.cs" />
-    <Compile Include="Messages\SendEmailMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Queries\GetEmails\GetEmailsQueryHandler.cs" />
-    <Compile Include="Queries\GetEmails\GetEmailsQueryRequest.cs" />
-    <Compile Include="Queries\GetEmails\GetEmailsQueryResponse.cs" />
+    <Compile Include="Queries\GetMessage\GetMessageQueryHandler.cs" />
+    <Compile Include="Queries\GetMessage\GetMessageQueryRequest.cs" />
+    <Compile Include="Queries\GetMessage\GetMessageQueryResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

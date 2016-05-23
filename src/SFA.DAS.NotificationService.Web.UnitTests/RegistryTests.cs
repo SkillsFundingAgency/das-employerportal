@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using NUnit.Framework;
-using SFA.DAS.NotificationService.Application.Commands.SendEmail;
 using SFA.DAS.NotificationService.Web.Controllers;
 using SFA.DAS.NotificationService.Web.DependencyResolution;
 using SFA.DAS.NotificationService.Web.Orchestrators;

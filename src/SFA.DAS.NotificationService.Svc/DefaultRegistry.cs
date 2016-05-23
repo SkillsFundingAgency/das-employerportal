@@ -18,7 +18,7 @@ namespace SFA.DAS.NotificationService.Worker
             var configurationService = new ConfigurationService(new AzureTableStorageConfigurationRepository("UseDevelopmentStorage=true"),
                 new ConfigurationOptions("SFA.DAS.NotificationService.Svc", null, "1.0"));
             For<IConfigurationService>().Use(configurationService);
-            For<IEmailNotificationRepository>().Use<AzureEmailNotificationRepository>().Ctor<string>().Is("UseDevelopmentStorage=true");
+            For<IMessageNotificationRepository>().Use<AzureEmailNotificationRepository>().Ctor<string>().Is("UseDevelopmentStorage=true");
         }
     }
 }

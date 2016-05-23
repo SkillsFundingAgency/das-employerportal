@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using SFA.DAS.NotificationService.Web.Models;
 using SFA.DAS.NotificationService.Web.Orchestrators;
 
 namespace SFA.DAS.NotificationService.Web.Controllers
@@ -19,7 +19,7 @@ namespace SFA.DAS.NotificationService.Web.Controllers
             _orchestrator = orchestrator;
         }
 
-        public async Task<HttpResponseMessage> Post(EmailNotification notification)
+        public async Task<HttpResponseMessage> Post(Dictionary<string, string> notification)
         {
             return await Task.Run<HttpResponseMessage>(() =>
             {

@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
 
-namespace SFA.DAS.NotificationService.Application.Commands.SendEmail
+namespace SFA.DAS.NotificationService.Application.Commands.SendMessage
 {
-    public class SendEmailCommandValidator : AbstractValidator<SendEmailCommand>
+    public class SendMessageCommandValidator : AbstractValidator<SendMessageCommand>
     {
-        public SendEmailCommandValidator()
+        public SendMessageCommandValidator()
         {
-            RuleFor(model => model.UserId).NotEmpty();
+            //RuleFor(model => model.UserId).NotEmpty();
             //RuleFor(model => model.FromEmail).NotEmpty();
             //RuleFor(model => model.ToEmail).NotEmpty();
             //RuleFor(model => model.Subject).NotEmpty();

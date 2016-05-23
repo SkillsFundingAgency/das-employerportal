@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
@@ -9,7 +10,7 @@ using SFA.DAS.NotificationService.Application.Messages;
 
 namespace SFA.DAS.NotificationService.Application
 {
-    public class AzureEmailNotificationRepository : IEmailNotificationRepository
+    public class AzureEmailNotificationRepository : IMessageNotificationRepository
     {
         private const string TableName = "SentEmailMessages";
 
@@ -25,35 +26,42 @@ namespace SFA.DAS.NotificationService.Application
             _storageAccount = CloudStorageAccount.Parse(storageConnectionString);
         }
 
-        public string Create(SendEmailData message)
+        public void Create(MessageData message)
         {
-            var messageId = Guid.NewGuid().ToString();
-
             var tableClient = _storageAccount.CreateCloudTableClient();
 
             var table = tableClient.GetTableReference(TableName);
 
-            var entity = new EmailMessageEntity(message.UserId, messageId)
+            var entity = new EmailMessageEntity(message.MessageType, message.MessageId)
             {
-                Data = JsonConvert.SerializeObject(message)
+                Data = JsonConvert.SerializeObject(message.Data)
             };
             var insertOperation = TableOperation.Insert(entity);
 
             table.Execute(insertOperation);
-
-            return messageId;
         }
 
-        public SendEmailMessage Get(string userId, string messageId)
+        public MessageData Get(string messageType, string messageId)
         {
+            var messageData = new MessageData
+            {
+                MessageType = messageType,
+                MessageId = messageId,
+                Data = new Dictionary<string, string>()
+            };
+
             var tableClient = _storageAccount.CreateCloudTableClient();
             var table = tableClient.GetTableReference(TableName);
 
-            var tableOperation = TableOperation.Retrieve<EmailMessageEntity>(userId, messageId);
+            var tableOperation = TableOperation.Retrieve<EmailMessageEntity>(messageType, messageId);
             var result = table.Execute(tableOperation);
 
             var configItem = (EmailMessageEntity)result.Result;
-            return configItem == null ? null : JsonConvert.DeserializeObject<SendEmailMessage>(configItem.Data);
+
+            if (configItem != null)
+                messageData.Data = JsonConvert.DeserializeObject<Dictionary<string, string>>(configItem.Data);
+
+            return messageData;
         }
     }
 }
