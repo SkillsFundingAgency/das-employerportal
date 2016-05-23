@@ -2,9 +2,13 @@ using System.Diagnostics;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.WindowsAzure.ServiceRuntime;
+using SFA.DAS.Messaging;
 using SFA.DAS.NotificationService.Application;
 using SFA.DAS.NotificationService.Application.Interfaces;
+using SFA.DAS.NotificationService.Application.Messages;
+using SFA.DAS.NotificationService.Application.Queries.GetMessage;
 using StructureMap;
 
 namespace SFA.DAS.NotificationService.Worker
@@ -67,12 +71,9 @@ namespace SFA.DAS.NotificationService.Worker
             {
                 Trace.TraceInformation("Working");
 
-                var repository = _container.GetInstance<IMessageNotificationRepository>();
+                var handler = _container.GetInstance<QueuedMessageHandler>();
 
-                //Get emails requests
-                //foreach
-                //  Send email
-                //  Delete request
+                handler.Handle();
 
                 await Task.Delay(1000);
             }

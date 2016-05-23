@@ -1,21 +1,27 @@
 ﻿using System;
 using FluentValidation.Results;
 using MediatR;
+using SFA.DAS.Messaging;
 using SFA.DAS.NotificationService.Application.DataEntities;
 using SFA.DAS.NotificationService.Application.Exceptions;
 using SFA.DAS.NotificationService.Application.Interfaces;
+using SFA.DAS.NotificationService.Application.Messages;
 
 namespace SFA.DAS.NotificationService.Application.Commands.SendMessage
 {
     public class SendMessageCommandHandler : RequestHandler<SendMessageCommand>
     {
         private readonly IMessageNotificationRepository _emailNotificationRepository;
+        private readonly MessagingService _messagingService;
 
-        public SendMessageCommandHandler(IMessageNotificationRepository emailNotificationRepository)
+        public SendMessageCommandHandler(IMessageNotificationRepository emailNotificationRepository, MessagingService messagingService)
         {
             if (emailNotificationRepository == null)
                 throw new ArgumentNullException(nameof(emailNotificationRepository));
+            if (messagingService == null)
+                throw new ArgumentNullException(nameof(messagingService));
             _emailNotificationRepository = emailNotificationRepository;
+            _messagingService = messagingService;
         }
 
         protected override void HandleCore(SendMessageCommand message)
@@ -26,13 +32,20 @@ namespace SFA.DAS.NotificationService.Application.Commands.SendMessage
                 throw new CustomValidationException(validationResult);
 
             var messageType = GetMessageType(message);
+            var messageId = Guid.NewGuid().ToString();
 
             _emailNotificationRepository.Create(new MessageData
             {
-                MessageId = Guid.NewGuid().ToString(),
+                MessageId = messageId,
                 MessageType = messageType,
                 Data = message.Data
             });
+
+            _messagingService.PublishAsync(new QueueMessage
+            {
+                MessageType = messageType,
+                MessageId = messageId
+            }).Wait();
         }
 
         private string GetMessageType(SendMessageCommand message)
