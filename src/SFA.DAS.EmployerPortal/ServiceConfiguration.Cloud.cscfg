@@ -3,19 +3,19 @@
   <Role name="SFA.DAS.EmployerPortal.Web">
     <Instances count="1" />
     <ConfigurationSettings>
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="__ConnectionString__" />
     </ConfigurationSettings>
   </Role>
   <Role name="SFA.DAS.NotificationService.Web">
     <Instances count="1" />
     <ConfigurationSettings>
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="__ConnectionString__" />
     </ConfigurationSettings>
   </Role>
   <Role name="SFA.DAS.NotificationService.Worker">
     <Instances count="1" />
     <ConfigurationSettings>
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="__ConnectionString__" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>

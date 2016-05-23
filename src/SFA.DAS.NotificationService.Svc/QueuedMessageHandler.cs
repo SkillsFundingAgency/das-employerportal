@@ -39,6 +39,8 @@ namespace SFA.DAS.NotificationService.Worker
                 });
 
                 _emailService.Send(savedMessage.Data);
+
+                message.CompleteAsync().Wait();
             }
 
         }

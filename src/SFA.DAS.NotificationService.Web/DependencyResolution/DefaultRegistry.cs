@@ -18,9 +18,11 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.WindowsAzure;
+using Microsoft.WindowsAzure.ServiceRuntime;
 using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.Messaging;
+using SFA.DAS.Messaging.AzureServiceBus;
 using SFA.DAS.Messaging.FileSystem;
 using SFA.DAS.NotificationService.Application;
 using SFA.DAS.NotificationService.Application.Interfaces;
@@ -31,9 +33,15 @@ using StructureMap.Configuration.DSL;
 namespace SFA.DAS.NotificationService.Web.DependencyResolution {
 	
     public class DefaultRegistry : Registry {
-        #region Constructors and Destructors
+        private const string ServiceName = "SFA.DAS.NotificationService";
+        private const string DevEnv = "DEV";
+        private const string CloudDevEnv = "CLOUD_DEV";
 
         public DefaultRegistry() {
+            var environmentName = RoleEnvironment.IsEmulated ? DevEnv : CloudDevEnv;
+
+            var connectionString = CloudConfigurationManager.GetSetting("StorageConnectionString");
+
             Scan(
                 scan => {
                     scan.WithDefaultConventions();
@@ -47,17 +55,25 @@ namespace SFA.DAS.NotificationService.Web.DependencyResolution {
                 });
             For<SingleInstanceFactory>().Use<SingleInstanceFactory>(ctx => t => ctx.GetInstance(t));
             For<MultiInstanceFactory>().Use<MultiInstanceFactory>(ctx => t => ctx.GetAllInstances(t));
-            For<IConfigurationRepository>().Use<AzureTableStorageConfigurationRepository>().Ctor<string>().Is("UseDevelopmentStorage=true");
-            var configurationService = new ConfigurationService(new AzureTableStorageConfigurationRepository("UseDevelopmentStorage=true"),
-                new ConfigurationOptions("SFA.DAS.NotificationService.Web", null, "1.0"));
+            For<IConfigurationRepository>().Use<AzureTableStorageConfigurationRepository>().Ctor<string>().Is(connectionString);
+            var configurationService = new ConfigurationService(new AzureTableStorageConfigurationRepository(connectionString),
+                new ConfigurationOptions(ServiceName, environmentName, "1.0"));
             For<IConfigurationService>().Use(configurationService);
-            For<IMessageSubSystem>().Use(() => new FileSystemMessageSubSystem());
+            if (environmentName == DevEnv)
+            {
+                For<IMessageSubSystem>().Use(() => new FileSystemMessageSubSystem());
+            }
+            else
+            {
+                var config = configurationService.Get<NotificationServiceConfiguration>().Result;
+                var queueConfig = config.ServiceBusConfiguration;
+                For<IMessageSubSystem>().Use(() => new AzureServiceBusMessageSubSystem(queueConfig.ConnectionString, queueConfig.QueueName));
+            }
+
             For<MessagingService>().Use<MessagingService>();
-            For<IMessageNotificationRepository>().Use<AzureEmailNotificationRepository>().Ctor<string>().Is("UseDevelopmentStorage=true");
+            For<IMessageNotificationRepository>().Use<AzureEmailNotificationRepository>().Ctor<string>().Is(connectionString);
             For<INotificationOrchestrator>().Use<NotificationOrchestrator>();
             For<IMediator>().Use<Mediator>();
         }
-
-        #endregion
     }
 }
