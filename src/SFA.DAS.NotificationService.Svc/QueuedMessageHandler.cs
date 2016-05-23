@@ -1,6 +1,7 @@
 ﻿using System;
 using MediatR;
 using SFA.DAS.Messaging;
+using SFA.DAS.NotificationService.Application.Interfaces;
 using SFA.DAS.NotificationService.Application.Messages;
 using SFA.DAS.NotificationService.Application.Queries.GetMessage;
 
@@ -10,15 +11,19 @@ namespace SFA.DAS.NotificationService.Worker
     {
         private readonly IMediator _mediator;
         private readonly MessagingService _messagingService;
+        private readonly IEmailService _emailService;
 
-        public QueuedMessageHandler(IMediator mediator, MessagingService messagingService)
+        public QueuedMessageHandler(IMediator mediator, MessagingService messagingService, IEmailService emailService)
         {
             if (mediator == null)
                 throw new ArgumentNullException(nameof(mediator));
             if (messagingService == null)
                 throw new ArgumentNullException(nameof(messagingService));
+            if (emailService == null)
+                throw new ArgumentNullException(nameof(emailService));
             _mediator = mediator;
             _messagingService = messagingService;
+            _emailService = emailService;
         }
 
         public void Handle()
@@ -33,7 +38,7 @@ namespace SFA.DAS.NotificationService.Worker
                     MessageId = message.Content.MessageId
                 });
 
-                var test = savedMessage.Data;
+                _emailService.Send(savedMessage.Data);
             }
 
         }

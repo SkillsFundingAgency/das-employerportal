@@ -34,6 +34,7 @@ namespace SFA.DAS.NotificationService.Worker
             For<IMessageSubSystem>().Use(() => new FileSystemMessageSubSystem());
             For<MessagingService>().Use<MessagingService>();
             For<QueuedMessageHandler>().Use<QueuedMessageHandler>();
+            For<IEmailService>().Use<LocalEmailService>();
             For<IMediator>().Use<Mediator>();
         }
     }

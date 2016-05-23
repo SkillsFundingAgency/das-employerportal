@@ -101,6 +101,7 @@
     <Compile Include="EmailMessageEntity.cs" />
     <Compile Include="Exceptions\CustomException.cs" />
     <Compile Include="Exceptions\CustomValidationException.cs" />
+    <Compile Include="Interfaces\IEmailService.cs" />
     <Compile Include="Interfaces\IMessageNotificationRepository.cs" />
     <Compile Include="Messages\MessageStatus.cs" />
     <Compile Include="Messages\NotificationServiceMessageType.cs" />
