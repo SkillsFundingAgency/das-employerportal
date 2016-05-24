@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 using Newtonsoft.Json;
 using SFA.DAS.NotificationService.Application.DataEntities;
 using SFA.DAS.NotificationService.Application.Interfaces;
-using SFA.DAS.NotificationService.Application.Messages;
 
 namespace SFA.DAS.NotificationService.Application
 {
     public class AzureEmailNotificationRepository : IMessageNotificationRepository
     {
-        private const string TableName = "SentEmailMessages";
+        private const string DefaultTableName = "SentEmailMessages";
 
         private readonly CloudStorageAccount _storageAccount;
 
@@ -30,7 +28,7 @@ namespace SFA.DAS.NotificationService.Application
         {
             var tableClient = _storageAccount.CreateCloudTableClient();
 
-            var table = tableClient.GetTableReference(TableName);
+            var table = tableClient.GetTableReference(GetTableName());
 
             var entity = new EmailMessageEntity(message.MessageType, message.MessageId)
             {
@@ -51,7 +49,7 @@ namespace SFA.DAS.NotificationService.Application
             };
 
             var tableClient = _storageAccount.CreateCloudTableClient();
-            var table = tableClient.GetTableReference(TableName);
+            var table = tableClient.GetTableReference(GetTableName());
 
             var tableOperation = TableOperation.Retrieve<EmailMessageEntity>(messageType, messageId);
             var result = table.Execute(tableOperation);
@@ -62,6 +60,11 @@ namespace SFA.DAS.NotificationService.Application
                 messageData.Data = JsonConvert.DeserializeObject<Dictionary<string, string>>(configItem.Data);
 
             return messageData;
+        }
+
+        private string GetTableName()
+        {
+            return DefaultTableName;
         }
     }
 }

@@ -23,23 +23,26 @@ namespace SFA.DAS.NotificationService.Worker.EmailServices
         {
             var config = _configurationService.Get<NotificationServiceConfiguration>().Result;
 
-            var mail = new MailMessage(GetItemFromInput(items, "fromEmail"), GetItemFromInput(items, "toEmail"));
-            var client = new SmtpClient
+            using (var client = new SmtpClient())
             {
-                Port = GetPortNumber(config.SmtpServer.Port),
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = false,
-                Host = config.SmtpServer.ServerName
-            };
+                client.Port = GetPortNumber(config.SmtpServer.Port);
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.UseDefaultCredentials = false;
+                client.Host = config.SmtpServer.ServerName;
 
-            if (!string.IsNullOrEmpty(config.SmtpServer.UserName) && !string.IsNullOrEmpty(config.SmtpServer.Password))
-            {
-                client.Credentials = new System.Net.NetworkCredential(config.SmtpServer.UserName, config.SmtpServer.Password);
+                if (!string.IsNullOrEmpty(config.SmtpServer.UserName) && !string.IsNullOrEmpty(config.SmtpServer.Password))
+                {
+                    client.Credentials = new System.Net.NetworkCredential(config.SmtpServer.UserName, config.SmtpServer.Password);
+                }
+
+                var mail = new MailMessage(GetItemFromInput(items, "fromEmail"), GetItemFromInput(items, "toEmail"))
+                {
+                    Subject = GetItemFromInput(items, "subject"),
+                    Body = GetItemFromInput(items, "body")
+                };
+
+                client.Send(mail);
             }
-            
-            mail.Subject = GetItemFromInput(items, "subject");
-            mail.Body = GetItemFromInput(items, "body");
-            client.Send(mail);
         }
 
         private int GetPortNumber(string candidate)
