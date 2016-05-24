@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 using Newtonsoft.Json;
+using SFA.DAS.Configuration;
 using SFA.DAS.NotificationService.Application.DataEntities;
 using SFA.DAS.NotificationService.Application.Interfaces;
 
@@ -10,17 +12,21 @@ namespace SFA.DAS.NotificationService.Application
 {
     public class AzureEmailNotificationRepository : IMessageNotificationRepository
     {
+        private readonly IConfigurationService _configurationService;
         private const string DefaultTableName = "SentEmailMessages";
 
         private readonly CloudStorageAccount _storageAccount;
 
-        public AzureEmailNotificationRepository() 
-            : this(CloudConfigurationManager.GetSetting("StorageConnectionString"))
+        public AzureEmailNotificationRepository(IConfigurationService configurationService) 
+            : this(configurationService, CloudConfigurationManager.GetSetting("StorageConnectionString"))
         {
         }
 
-        public AzureEmailNotificationRepository(string storageConnectionString)
+        public AzureEmailNotificationRepository(IConfigurationService configurationService, string storageConnectionString)
         {
+            if (configurationService == null)
+                throw new ArgumentNullException(nameof(configurationService));
+            _configurationService = configurationService;
             _storageAccount = CloudStorageAccount.Parse(storageConnectionString);
         }
 
@@ -64,6 +70,13 @@ namespace SFA.DAS.NotificationService.Application
 
         private string GetTableName()
         {
+            var configuration = _configurationService.Get<NotificationServiceConfiguration>().Result;
+
+            if (!string.IsNullOrEmpty(configuration.MessageStorage?.TableName))
+            {
+                return configuration.MessageStorage.TableName;
+            }
+
             return DefaultTableName;
         }
     }
