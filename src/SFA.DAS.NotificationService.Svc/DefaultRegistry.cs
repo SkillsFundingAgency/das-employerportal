@@ -54,7 +54,7 @@ namespace SFA.DAS.NotificationService.Worker
                 var config = configurationService.Get<NotificationServiceConfiguration>().Result;
                 var queueConfig = config.ServiceBusConfiguration;
                 For<IMessageSubSystem>().Use(() => new AzureServiceBusMessageSubSystem(queueConfig.ConnectionString, queueConfig.QueueName));
-                For<IEmailService>().Use<LocalEmailService>();
+                For<IEmailService>().Use<SendGridSmtpEmailService>();
             }
             
             For<MessagingService>().Use<MessagingService>();

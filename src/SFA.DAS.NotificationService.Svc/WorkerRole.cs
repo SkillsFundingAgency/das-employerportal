@@ -2,13 +2,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
 using Microsoft.WindowsAzure.ServiceRuntime;
-using SFA.DAS.Messaging;
-using SFA.DAS.NotificationService.Application;
-using SFA.DAS.NotificationService.Application.Interfaces;
-using SFA.DAS.NotificationService.Application.Messages;
-using SFA.DAS.NotificationService.Application.Queries.GetMessage;
 using StructureMap;
 
 namespace SFA.DAS.NotificationService.Worker
@@ -21,7 +15,7 @@ namespace SFA.DAS.NotificationService.Worker
 
         public override void Run()
         {
-            Trace.TraceInformation("SFA.DAS.NotificationService.Svc is running");
+            Trace.TraceInformation("SFA.DAS.NotificationService.Worker is running");
 
             try
             {
@@ -47,21 +41,21 @@ namespace SFA.DAS.NotificationService.Worker
 
             bool result = base.OnStart();
 
-            Trace.TraceInformation("SFA.DAS.NotificationService.Svc has been started");
+            Trace.TraceInformation("SFA.DAS.NotificationService.Worker has been started");
 
             return result;
         }
 
         public override void OnStop()
         {
-            Trace.TraceInformation("SFA.DAS.NotificationService.Svc is stopping");
+            Trace.TraceInformation("SFA.DAS.NotificationService.Worker is stopping");
 
             this.cancellationTokenSource.Cancel();
             this.runCompleteEvent.WaitOne();
 
             base.OnStop();
 
-            Trace.TraceInformation("SFA.DAS.NotificationService.Svc has stopped");
+            Trace.TraceInformation("SFA.DAS.NotificationService.Worker has stopped");
         }
 
         private async Task RunAsync(CancellationToken cancellationToken)
