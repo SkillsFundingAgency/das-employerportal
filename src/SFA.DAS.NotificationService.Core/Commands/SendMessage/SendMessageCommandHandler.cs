@@ -34,7 +34,7 @@ namespace SFA.DAS.NotificationService.Application.Commands.SendMessage
 
             var messageType = GetMessageType(message);
             var messageId = Guid.NewGuid().ToString();
-            message.Data.Add("Timestamp", DateTimeProvider.Current.UtcNow.ToString());
+            message.Data.Add("Timestamp", DateTimeProvider.Current.UtcNow.ToString("yyyy-MM-dd HH':'mm':'ss"));
 
             _emailNotificationRepository.Create(new MessageData
             {
