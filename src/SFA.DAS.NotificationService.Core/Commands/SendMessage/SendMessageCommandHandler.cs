@@ -6,6 +6,7 @@ using SFA.DAS.NotificationService.Application.DataEntities;
 using SFA.DAS.NotificationService.Application.Exceptions;
 using SFA.DAS.NotificationService.Application.Interfaces;
 using SFA.DAS.NotificationService.Application.Messages;
+using SFA.DAS.TimeProvider;
 
 namespace SFA.DAS.NotificationService.Application.Commands.SendMessage
 {
@@ -33,6 +34,7 @@ namespace SFA.DAS.NotificationService.Application.Commands.SendMessage
 
             var messageType = GetMessageType(message);
             var messageId = Guid.NewGuid().ToString();
+            message.Data.Add("Timestamp", DateTimeProvider.Current.UtcNow.ToString());
 
             _emailNotificationRepository.Create(new MessageData
             {
