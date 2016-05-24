@@ -20,6 +20,7 @@ namespace SFA.DAS.EmployerPortal.Web.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
