@@ -1,5 +1,21 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿<div class="grid-row">
+    <div class="column-two-thirds">
+        <h1 class="heading-large">Welcome to the Employer Portal</h1>
 
-<h1>Employer Portal</h1>
+    </div>
+    <div class="column-one-third">
+
+        <h1 class="heading-large">Profile</h1>
+
+        @if (HttpContext.Current.User.Identity.IsAuthenticated)
+        {
+            <p>Hi @HttpContext.Current.User.Identity.Name <a href="@Url.Action("Contact", "Home")">view your details</a></p>
+        }
+        else
+        {
+            <p>To view your details <a href="@Url.Action("Contact", "Home")">Sign In / Register</a></p>
+        }
+
+        
+    </div>
+</div>
