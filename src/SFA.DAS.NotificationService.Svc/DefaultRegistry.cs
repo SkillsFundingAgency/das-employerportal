@@ -1,7 +1,7 @@
-﻿using FluentValidation;
+﻿using System;
+using FluentValidation;
 using MediatR;
 using Microsoft.WindowsAzure;
-using Microsoft.WindowsAzure.ServiceRuntime;
 using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.Messaging;
@@ -17,13 +17,18 @@ namespace SFA.DAS.NotificationService.Worker
     public class DefaultRegistry : Registry
     {
         private const string ServiceName = "SFA.DAS.NotificationService";
-        private const string DevEnv = "DEV";
+        private const string DevEnv = "LOCAL";
         private const string CloudDevEnv = "CLOUD_DEV";
 
         public DefaultRegistry()
         {
-            var environmentName = RoleEnvironment.IsEmulated ? DevEnv : CloudDevEnv;
 
+            var environment = Environment.GetEnvironmentVariable("DASENV");
+            if (string.IsNullOrEmpty(environment))
+            {
+                environment = CloudConfigurationManager.GetSetting("EnvironmentName");
+            }
+            
             var connectionString = CloudConfigurationManager.GetSetting("StorageConnectionString");
 
             Scan(
@@ -40,11 +45,11 @@ namespace SFA.DAS.NotificationService.Worker
             For<MultiInstanceFactory>().Use<MultiInstanceFactory>(ctx => t => ctx.GetAllInstances(t));
             For<IConfigurationRepository>().Use<AzureTableStorageConfigurationRepository>().Ctor<string>().Is(connectionString);
             var configurationService = new ConfigurationService(new AzureTableStorageConfigurationRepository(connectionString),
-                new ConfigurationOptions(ServiceName, environmentName, "1.0"));
+                new ConfigurationOptions(ServiceName, environment, "1.0"));
             For<IConfigurationService>().Use(configurationService);
             For<IMessageNotificationRepository>().Use<AzureEmailNotificationRepository>().Ctor<string>().Is(connectionString);
 
-            if (environmentName == DevEnv)
+            if (environment == DevEnv)
             {
                 For<IMessageSubSystem>().Use(() => new FileSystemMessageSubSystem());
                 For<IEmailService>().Use<LocalEmailService>();
