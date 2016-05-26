@@ -111,6 +111,8 @@
     <Compile Include="Queries\GetMessage\GetMessageQueryHandler.cs" />
     <Compile Include="Queries\GetMessage\GetMessageQueryRequest.cs" />
     <Compile Include="Queries\GetMessage\GetMessageQueryResponse.cs" />
+    <Compile Include="Services\DefaultGuidProvider.cs" />
+    <Compile Include="Services\GuidProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

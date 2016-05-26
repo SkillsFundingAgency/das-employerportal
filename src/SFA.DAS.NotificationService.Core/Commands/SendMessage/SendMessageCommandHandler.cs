@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using FluentValidation.Results;
 using MediatR;
 using SFA.DAS.Messaging;
@@ -6,6 +8,7 @@ using SFA.DAS.NotificationService.Application.DataEntities;
 using SFA.DAS.NotificationService.Application.Exceptions;
 using SFA.DAS.NotificationService.Application.Interfaces;
 using SFA.DAS.NotificationService.Application.Messages;
+using SFA.DAS.NotificationService.Application.Services;
 using SFA.DAS.TimeProvider;
 
 namespace SFA.DAS.NotificationService.Application.Commands.SendMessage
@@ -33,7 +36,7 @@ namespace SFA.DAS.NotificationService.Application.Commands.SendMessage
                 throw new CustomValidationException(validationResult);
 
             var messageType = GetMessageType(message);
-            var messageId = Guid.NewGuid().ToString();
+            var messageId = GuidProvider.Current.NewGuid().ToString();
             message.Data.Add("Timestamp", DateTimeProvider.Current.UtcNow.ToString("yyyy-MM-dd HH':'mm':'ss"));
 
             _emailNotificationRepository.Create(new MessageData
@@ -52,11 +55,9 @@ namespace SFA.DAS.NotificationService.Application.Commands.SendMessage
 
         private string GetMessageType(SendMessageCommand message)
         {
-            var messageType = "";
+            var item = message.Data.FirstOrDefault(x => x.Key.ToUpper() == "MESSAGETYPE");
 
-            message.Data.TryGetValue("messagetype", out messageType);
-
-            return messageType;
+            return !item.Equals(default(KeyValuePair<string, string>)) ? item.Value : string.Empty;
         }
 
         private ValidationResult Validate(SendMessageCommand cmd)
