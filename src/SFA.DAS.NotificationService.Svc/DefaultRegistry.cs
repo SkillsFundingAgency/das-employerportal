@@ -52,6 +52,7 @@ namespace SFA.DAS.NotificationService.Worker
             {
                 For<IMessageSubSystem>().Use(() => new FileSystemMessageSubSystem());
                 For<IEmailService>().Use<LocalEmailService>();
+                //For<IEmailService>().Use<SendGridSmtpEmailService>();
             }
             else
             {
