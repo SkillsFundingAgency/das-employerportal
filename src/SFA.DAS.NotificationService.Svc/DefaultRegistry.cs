@@ -18,7 +18,6 @@ namespace SFA.DAS.NotificationService.Worker
     {
         private const string ServiceName = "SFA.DAS.NotificationService";
         private const string DevEnv = "LOCAL";
-        private const string CloudDevEnv = "CLOUD_DEV";
 
         public DefaultRegistry()
         {
@@ -29,8 +28,6 @@ namespace SFA.DAS.NotificationService.Worker
                 environment = CloudConfigurationManager.GetSetting("EnvironmentName");
             }
             
-            var connectionString = CloudConfigurationManager.GetSetting("StorageConnectionString");
-
             Scan(
                 scan => {
                     scan.WithDefaultConventions();
@@ -43,11 +40,13 @@ namespace SFA.DAS.NotificationService.Worker
                 });
             For<SingleInstanceFactory>().Use<SingleInstanceFactory>(ctx => t => ctx.GetInstance(t));
             For<MultiInstanceFactory>().Use<MultiInstanceFactory>(ctx => t => ctx.GetAllInstances(t));
-            For<IConfigurationRepository>().Use<AzureTableStorageConfigurationRepository>().Ctor<string>().Is(connectionString);
-            var configurationService = new ConfigurationService(new AzureTableStorageConfigurationRepository(connectionString),
+            
+            var configurationService = new ConfigurationService(
+                new AzureTableStorageConfigurationRepository(CloudConfigurationManager.GetSetting("ConfigurationStorageConnectionString")),
                 new ConfigurationOptions(ServiceName, environment, "1.0"));
             For<IConfigurationService>().Use(configurationService);
-            For<IMessageNotificationRepository>().Use<AzureEmailNotificationRepository>().Ctor<string>().Is(connectionString);
+
+            For<IMessageNotificationRepository>().Use<AzureEmailNotificationRepository>().Ctor<string>().Is(CloudConfigurationManager.GetSetting("StorageConnectionString"));
 
             if (environment == DevEnv)
             {

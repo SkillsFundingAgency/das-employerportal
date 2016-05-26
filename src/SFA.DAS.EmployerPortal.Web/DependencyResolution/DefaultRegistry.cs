@@ -17,7 +17,6 @@
 
 using System;
 using Microsoft.WindowsAzure;
-using Microsoft.WindowsAzure.ServiceRuntime;
 using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
 
@@ -28,8 +27,6 @@ namespace SFA.DAS.EmployerPortal.Web.DependencyResolution {
     public class DefaultRegistry : Registry {
         #region Constructors and Destructors
         private const string ServiceName = "SFA.DAS.NotificationService";
-        private const string DevEnv = "LOCAL";
-        private const string CloudDevEnv = "CLOUD_DEV";
         public DefaultRegistry() {
 
 
@@ -39,8 +36,6 @@ namespace SFA.DAS.EmployerPortal.Web.DependencyResolution {
                 environment = CloudConfigurationManager.GetSetting("EnvironmentName");
             }
             
-            var connectionString = CloudConfigurationManager.GetSetting("StorageConnectionString");
-
             Scan(
                 scan => {
                     scan.TheCallingAssembly();
@@ -49,8 +44,8 @@ namespace SFA.DAS.EmployerPortal.Web.DependencyResolution {
                 });
             //For<IExample>().Use<Example>();
 
-            For<IConfigurationRepository>().Use<AzureTableStorageConfigurationRepository>().Ctor<string>().Is(connectionString);
-            var configurationService = new ConfigurationService(new AzureTableStorageConfigurationRepository(connectionString),
+            var configurationService = new ConfigurationService(
+                new AzureTableStorageConfigurationRepository(CloudConfigurationManager.GetSetting("ConfigurationStorageConnectionString")),
                 new ConfigurationOptions(ServiceName, environment, "1.0"));
             For<IConfigurationService>().Use(configurationService);
         }
