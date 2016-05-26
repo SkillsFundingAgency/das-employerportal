@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace SFA.DAS.NotificationService.Web.Areas.HelpPage.ModelDescriptions
