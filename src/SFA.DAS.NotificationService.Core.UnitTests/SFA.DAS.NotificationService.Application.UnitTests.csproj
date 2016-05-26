@@ -64,6 +64,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="FakeGuidProvider.cs" />
     <Compile Include="FateTimeProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
