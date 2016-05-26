@@ -68,7 +68,7 @@ namespace SFA.DAS.NotificationService.Web.DependencyResolution {
             }
             else
             {
-                var config = configurationService.Get<NotificationServiceConfiguration>().Result;
+                var config = configurationService.Get<NotificationServiceConfiguration>();
                 var queueConfig = config.ServiceBusConfiguration;
                 For<IMessageSubSystem>().Use(() => new AzureServiceBusMessageSubSystem(queueConfig.ConnectionString, queueConfig.QueueName));
             }

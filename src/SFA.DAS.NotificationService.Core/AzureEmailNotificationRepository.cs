@@ -70,7 +70,7 @@ namespace SFA.DAS.NotificationService.Application
 
         private string GetTableName()
         {
-            var configuration = _configurationService.Get<NotificationServiceConfiguration>().Result;
+            var configuration = _configurationService.Get<NotificationServiceConfiguration>();
 
             if (!string.IsNullOrEmpty(configuration.MessageStorage?.TableName))
             {
