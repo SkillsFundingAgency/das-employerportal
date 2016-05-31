@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using SFA.DAS.EmployerUsers.WebClientComponents;
 
 namespace SFA.DAS.EmployerPortal.Web.Controllers
 {
@@ -16,7 +17,7 @@ namespace SFA.DAS.EmployerPortal.Web.Controllers
             return View();
         }
 
-        [Authorize]
+        [AuthoriseActiveUser]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

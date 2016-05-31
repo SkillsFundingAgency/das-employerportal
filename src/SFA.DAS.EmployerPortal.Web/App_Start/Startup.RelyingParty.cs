@@ -7,7 +7,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OpenIdConnect;
 using Owin;
-using SFA.DAS.EmployerPortal.Web.Models;
+using SFA.DAS.EmployerPortal.Infrastructure.Configuration;
 using Thinktecture.IdentityModel.Client;
 
 namespace SFA.DAS.EmployerPortal.Web

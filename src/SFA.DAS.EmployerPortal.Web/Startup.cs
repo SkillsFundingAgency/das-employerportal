@@ -2,7 +2,7 @@
 using NLog;
 using Owin;
 using SFA.DAS.Configuration;
-using SFA.DAS.EmployerPortal.Web.Models;
+using SFA.DAS.EmployerPortal.Infrastructure.Configuration;
 
 [assembly: OwinStartup(typeof(SFA.DAS.EmployerPortal.Web.Startup))]
 namespace SFA.DAS.EmployerPortal.Web
