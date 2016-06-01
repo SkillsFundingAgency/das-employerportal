@@ -15,8 +15,10 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using SFA.DAS.EmployerPortal.Infrastructure.Configuration;
 using SFA.DAS.EmployerPortal.Web;
 using SFA.DAS.EmployerPortal.Web.DependencyResolution;
+using SFA.DAS.EmployerUsers.WebClientComponents;
 using WebActivatorEx;
 
 [assembly: PreApplicationStartMethod(typeof(StructuremapMvc), "Start")]
@@ -49,6 +51,8 @@ namespace SFA.DAS.EmployerPortal.Web {
             StructureMapDependencyScope = new StructureMapDependencyScope(Container);
             DependencyResolver.SetResolver(StructureMapDependencyScope);
             DynamicModuleUtility.RegisterModule(typeof(StructureMapScopeModule));
+
+            ConfigurationFactory.Current = Container.GetInstance<EmployerPortalClientComponentConfigurationFactory>();
         }
 
         #endregion

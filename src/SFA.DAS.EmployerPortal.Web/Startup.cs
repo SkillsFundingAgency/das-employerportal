@@ -2,7 +2,7 @@
 using NLog;
 using Owin;
 using SFA.DAS.Configuration;
-using SFA.DAS.EmployerPortal.Web.Models;
+using SFA.DAS.EmployerPortal.Infrastructure.Configuration;
 
 [assembly: OwinStartup(typeof(SFA.DAS.EmployerPortal.Web.Startup))]
 namespace SFA.DAS.EmployerPortal.Web
@@ -17,7 +17,7 @@ namespace SFA.DAS.EmployerPortal.Web
             _logger.Debug("Started running Owin Configuration");
 
             var configurationService = StructuremapMvc.Container.GetInstance<IConfigurationService>();
-            configurationService.Get<EmployerPortalConfiguration>().ContinueWith((task) =>
+            configurationService.GetAsync<EmployerPortalConfiguration>().ContinueWith((task) =>
             {
                 if (task.Exception != null)
                 {

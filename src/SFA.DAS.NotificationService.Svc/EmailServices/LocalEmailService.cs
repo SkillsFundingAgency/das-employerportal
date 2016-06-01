@@ -21,7 +21,7 @@ namespace SFA.DAS.NotificationService.Worker.EmailServices
 
         public void Send(Dictionary<string, string> items)
         {
-            var config = _configurationService.Get<NotificationServiceConfiguration>().Result;
+            var config = _configurationService.Get<NotificationServiceConfiguration>();
 
             using (var client = new SmtpClient())
             {
