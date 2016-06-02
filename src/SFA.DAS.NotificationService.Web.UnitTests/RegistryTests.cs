@@ -1,10 +1,10 @@
 ﻿using NUnit.Framework;
-using SFA.DAS.NotificationService.Web.Controllers;
-using SFA.DAS.NotificationService.Web.DependencyResolution;
-using SFA.DAS.NotificationService.Web.Orchestrators;
+using SFA.DAS.NotificationService.Api.Controllers;
+using SFA.DAS.NotificationService.Api.DependencyResolution;
+using SFA.DAS.NotificationService.Api.Orchestrators;
 using StructureMap;
 
-namespace SFA.DAS.NotificationService.Web.UnitTests
+namespace SFA.DAS.NotificationService.Api.UnitTests
 {
     [TestFixture]
     public class RegistryTests

@@ -11,7 +11,7 @@
     <Certificates>
     </Certificates>
   </Role>
-  <Role name="SFA.DAS.NotificationService.Web">
+  <Role name="SFA.DAS.NotificationService.Api">
     <Instances count="1" />
     <ConfigurationSettings>
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />

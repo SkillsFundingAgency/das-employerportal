@@ -18,7 +18,7 @@
 using System.Web.Http.Dependencies;
 using StructureMap;
 
-namespace SFA.DAS.NotificationService.Web.DependencyResolution
+namespace SFA.DAS.NotificationService.Api.DependencyResolution
 {
     /// <summary>
     /// The structure map web api dependency scope.

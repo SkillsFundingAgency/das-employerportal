@@ -1,10 +1,7 @@
-namespace SFA.DAS.NotificationService.Web.DependencyResolution {
-    using System.Web;
+using System.Web;
+using StructureMap.Web.Pipeline;
 
-    using SFA.DAS.NotificationService.Web.App_Start;
-
-    using StructureMap.Web.Pipeline;
-
+namespace SFA.DAS.NotificationService.Api.DependencyResolution {
     public class StructureMapScopeModule : IHttpModule {
         #region Public Methods and Operators
 

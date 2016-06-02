@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using MediatR;
+using SFA.DAS.NotificationService.Api.Core;
 using SFA.DAS.NotificationService.Application.Commands.SendMessage;
-using SFA.DAS.NotificationService.Web.Core;
 
-namespace SFA.DAS.NotificationService.Web.Orchestrators
+namespace SFA.DAS.NotificationService.Api.Orchestrators
 {
     public class NotificationOrchestrator : OrchestratorBase, INotificationOrchestrator
     {

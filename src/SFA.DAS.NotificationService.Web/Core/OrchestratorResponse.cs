@@ -1,7 +1,7 @@
 ﻿
 using FluentValidation.Results;
 
-namespace SFA.DAS.NotificationService.Web.Core
+namespace SFA.DAS.NotificationService.Api.Core
 {
     public class OrchestratorResponse
     {

@@ -20,7 +20,7 @@
     <Certificates>
     </Certificates>
   </WebRole>
-  <WebRole name="SFA.DAS.NotificationService.Web" vmsize="Small">
+  <WebRole name="SFA.DAS.NotificationService.Api" vmsize="Small">
     <Sites>
       <Site name="Web">
         <Bindings>

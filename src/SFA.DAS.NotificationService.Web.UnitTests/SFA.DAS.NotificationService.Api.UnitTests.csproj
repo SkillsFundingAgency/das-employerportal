@@ -7,8 +7,8 @@
     <ProjectGuid>{AF5196F8-BFE6-4B42-829E-37E28FD22B22}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SFA.DAS.NotificationService.Web.UnitTests</RootNamespace>
-    <AssemblyName>SFA.DAS.NotificationService.Web.UnitTests</AssemblyName>
+    <RootNamespace>SFA.DAS.NotificationService.Api.UnitTests</RootNamespace>
+    <AssemblyName>SFA.DAS.NotificationService.Api.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -107,9 +107,9 @@
       <Project>{A7D9A608-913C-496D-ACED-4A6D7F2C2758}</Project>
       <Name>SFA.DAS.NotificationService.Application</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SFA.DAS.NotificationService.Web\SFA.DAS.NotificationService.Web.csproj">
+    <ProjectReference Include="..\SFA.DAS.NotificationService.Web\SFA.DAS.NotificationService.Api.csproj">
       <Project>{E371279A-8BC6-4B5C-80E7-C3331A3CAD48}</Project>
-      <Name>SFA.DAS.NotificationService.Web</Name>
+      <Name>SFA.DAS.NotificationService.Api</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

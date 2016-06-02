@@ -24,13 +24,12 @@ using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.Messaging;
 using SFA.DAS.Messaging.AzureServiceBus;
 using SFA.DAS.Messaging.FileSystem;
+using SFA.DAS.NotificationService.Api.Orchestrators;
 using SFA.DAS.NotificationService.Application;
 using SFA.DAS.NotificationService.Application.Interfaces;
-using SFA.DAS.NotificationService.Web.Orchestrators;
 using StructureMap.Configuration.DSL;
 
-
-namespace SFA.DAS.NotificationService.Web.DependencyResolution {
+namespace SFA.DAS.NotificationService.Api.DependencyResolution {
 	
     public class DefaultRegistry : Registry {
         private const string ServiceName = "SFA.DAS.NotificationService";

@@ -1,4 +1,4 @@
-﻿namespace SFA.DAS.NotificationService.Web.Orchestrators
+﻿namespace SFA.DAS.NotificationService.Api.Orchestrators
 {
     public class NotificationOrchestratorCodes
     {

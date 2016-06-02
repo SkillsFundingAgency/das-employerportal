@@ -1,6 +1,6 @@
 ﻿using System.Web.Http;
 
-namespace SFA.DAS.NotificationService.Web
+namespace SFA.DAS.NotificationService.Api
 {
     public class WebApiApplication : System.Web.HttpApplication
     {

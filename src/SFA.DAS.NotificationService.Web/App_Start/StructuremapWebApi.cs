@@ -16,11 +16,12 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Web.Http;
-using SFA.DAS.NotificationService.Web.DependencyResolution;
+using SFA.DAS.NotificationService.Api;
+using SFA.DAS.NotificationService.Api.DependencyResolution;
 
-[assembly: WebActivatorEx.PostApplicationStartMethod(typeof(SFA.DAS.NotificationService.Web.App_Start.StructuremapWebApi), "Start")]
+[assembly: WebActivatorEx.PostApplicationStartMethod(typeof(StructuremapWebApi), "Start")]
 
-namespace SFA.DAS.NotificationService.Web.App_Start {
+namespace SFA.DAS.NotificationService.Api {
     public static class StructuremapWebApi {
         public static void Start() {
 			var container = StructuremapMvc.StructureMapDependencyScope.Container;

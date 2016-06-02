@@ -15,16 +15,14 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace SFA.DAS.NotificationService.Web.DependencyResolution {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using Microsoft.Practices.ServiceLocation;
+using StructureMap;
 
-    using Microsoft.Practices.ServiceLocation;
-
-    using StructureMap;
-	
+namespace SFA.DAS.NotificationService.Api.DependencyResolution {
     /// <summary>
     /// The structure map dependency scope.
     /// </summary>

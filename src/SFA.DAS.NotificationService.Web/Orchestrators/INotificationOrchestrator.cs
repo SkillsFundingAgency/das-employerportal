@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using SFA.DAS.NotificationService.Web.Core;
+using SFA.DAS.NotificationService.Api.Core;
 
-namespace SFA.DAS.NotificationService.Web.Orchestrators
+namespace SFA.DAS.NotificationService.Api.Orchestrators
 {
     public interface INotificationOrchestrator
     {

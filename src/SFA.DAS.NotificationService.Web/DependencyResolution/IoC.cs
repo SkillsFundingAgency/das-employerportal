@@ -16,9 +16,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 
-namespace SFA.DAS.NotificationService.Web.DependencyResolution {
-    using StructureMap;
-	
+using StructureMap;
+
+namespace SFA.DAS.NotificationService.Api.DependencyResolution {
     public static class IoC {
         public static IContainer Initialize() {
             return new Container(c => c.AddRegistry<DefaultRegistry>());

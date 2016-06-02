@@ -4,9 +4,9 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using SFA.DAS.NotificationService.Web.Orchestrators;
+using SFA.DAS.NotificationService.Api.Orchestrators;
 
-namespace SFA.DAS.NotificationService.Web.Controllers
+namespace SFA.DAS.NotificationService.Api.Controllers
 {
     public class NotificationController : ApiController
     {

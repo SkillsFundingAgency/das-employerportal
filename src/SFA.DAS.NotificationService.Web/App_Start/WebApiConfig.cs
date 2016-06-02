@@ -1,7 +1,7 @@
 ﻿using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 
-namespace SFA.DAS.NotificationService.Web
+namespace SFA.DAS.NotificationService.Api
 {
     public static class WebApiConfig
     {

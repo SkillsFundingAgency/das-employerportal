@@ -15,15 +15,14 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace SFA.DAS.NotificationService.Web.DependencyResolution {
-    using System;
-    using System.Web.Mvc;
+using System;
+using System.Web.Mvc;
+using StructureMap.Configuration.DSL;
+using StructureMap.Graph;
+using StructureMap.Pipeline;
+using StructureMap.TypeRules;
 
-    using StructureMap.Configuration.DSL;
-    using StructureMap.Graph;
-    using StructureMap.Pipeline;
-    using StructureMap.TypeRules;
-
+namespace SFA.DAS.NotificationService.Api.DependencyResolution {
     public class ControllerConvention : IRegistrationConvention {
         #region Public Methods and Operators
 

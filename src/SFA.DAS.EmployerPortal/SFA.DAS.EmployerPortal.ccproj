@@ -52,24 +52,23 @@
       <RoleType>Worker</RoleType>
       <RoleName>SFA.DAS.NotificationService.Worker</RoleName>
     </ProjectReference>
-    <ProjectReference Include="..\SFA.DAS.NotificationService.Web\SFA.DAS.NotificationService.Web.csproj">
-      <Name>SFA.DAS.NotificationService.Web</Name>
+    <ProjectReference Include="..\SFA.DAS.NotificationService.Web\SFA.DAS.NotificationService.Api.csproj">
+      <Name>SFA.DAS.NotificationService.Api</Name>
       <Project>{e371279a-8bc6-4b5c-80e7-c3331a3cad48}</Project>
       <Private>True</Private>
       <RoleType>Web</RoleType>
-      <RoleName>SFA.DAS.NotificationService.Web</RoleName>
-      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
+      <RoleName>SFA.DAS.NotificationService.Api</RoleName>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SFA.DAS.EmployerPortal.WebContent\" />
     <Folder Include="SFA.DAS.NotificationService.WorkerContent" />
-    <Folder Include="SFA.DAS.NotificationService.WebContent\" />
+    <Folder Include="SFA.DAS.NotificationService.ApiContent" />
   </ItemGroup>
   <ItemGroup>
     <DiagnosticsConfiguration Include="SFA.DAS.EmployerPortal.WebContent\diagnostics.wadcfgx" />
     <DiagnosticsConfiguration Include="SFA.DAS.NotificationService.WorkerContent\diagnostics.wadcfgx" />
-    <DiagnosticsConfiguration Include="SFA.DAS.NotificationService.WebContent\diagnostics.wadcfgx" />
+    <DiagnosticsConfiguration Include="SFA.DAS.NotificationService.ApiContent\diagnostics.wadcfgx" />
   </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>
