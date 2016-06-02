@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="SFA.DAS.NotificationService.Web.WebApiApplication" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="SFA.DAS.NotificationService.Api.WebApiApplication" Language="C#" %>
