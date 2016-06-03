@@ -97,15 +97,19 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AzureEmailNotificationRepository.cs" />
-    <Compile Include="Commands\SendMessage\SendMessageCommand.cs" />
-    <Compile Include="Commands\SendMessage\SendMessageCommandHandler.cs" />
-    <Compile Include="Commands\SendMessage\SendMessageCommandValidator.cs" />
+    <Compile Include="Commands\SendEmail\SendEmailCommand.cs" />
+    <Compile Include="Commands\SendEmail\SendEmailCommandHandler.cs" />
+    <Compile Include="Commands\SendEmail\SendEmailCommandValidator.cs" />
+    <Compile Include="DataEntities\MessageContent.cs" />
     <Compile Include="DataEntities\MessageData.cs" />
     <Compile Include="EmailMessageEntity.cs" />
     <Compile Include="Exceptions\CustomException.cs" />
     <Compile Include="Exceptions\CustomValidationException.cs" />
     <Compile Include="Interfaces\IEmailService.cs" />
     <Compile Include="Interfaces\IMessageNotificationRepository.cs" />
+    <Compile Include="Messages\EmailContent.cs" />
+    <Compile Include="Messages\EmailMessage.cs" />
+    <Compile Include="Messages\MessageFormat.cs" />
     <Compile Include="Messages\MessageStatus.cs" />
     <Compile Include="Messages\NotificationServiceMessageType.cs" />
     <Compile Include="Messages\QueueMessage.cs" />

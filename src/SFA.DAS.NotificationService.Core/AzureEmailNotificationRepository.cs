@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
@@ -38,7 +37,7 @@ namespace SFA.DAS.NotificationService.Application
 
             var entity = new EmailMessageEntity(message.MessageType, message.MessageId)
             {
-                Data = JsonConvert.SerializeObject(message.Data)
+                Data = JsonConvert.SerializeObject(message.Content)
             };
             var insertOperation = TableOperation.Insert(entity);
 
@@ -51,7 +50,7 @@ namespace SFA.DAS.NotificationService.Application
             {
                 MessageType = messageType,
                 MessageId = messageId,
-                Data = new Dictionary<string, string>()
+                Content = null
             };
 
             var tableClient = _storageAccount.CreateCloudTableClient();
@@ -60,10 +59,10 @@ namespace SFA.DAS.NotificationService.Application
             var tableOperation = TableOperation.Retrieve<EmailMessageEntity>(messageType, messageId);
             var result = table.Execute(tableOperation);
 
-            var configItem = (EmailMessageEntity)result.Result;
+            var messageEntity = (EmailMessageEntity)result.Result;
 
-            if (configItem != null)
-                messageData.Data = JsonConvert.DeserializeObject<Dictionary<string, string>>(configItem.Data);
+            if (messageEntity != null)
+                messageData.Content = JsonConvert.DeserializeObject<MessageContent>(messageEntity.Data);
 
             return messageData;
         }

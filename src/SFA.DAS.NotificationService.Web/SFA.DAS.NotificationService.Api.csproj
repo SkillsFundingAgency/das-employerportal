@@ -241,7 +241,7 @@
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="App_Start\StructuremapWebApi.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\NotificationController.cs" />
+    <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Core\InvalidOrchestratorCodeException.cs" />
     <Compile Include="Core\OrchestratorBase.cs" />
     <Compile Include="Core\OrchestratorResponse.cs" />
@@ -257,6 +257,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmailViewModel.cs" />
     <Compile Include="Orchestrators\INotificationOrchestrator.cs" />
     <Compile Include="Orchestrators\NotificationOrchestrator.cs" />
     <Compile Include="Orchestrators\NotificationOrchestratorCodes.cs" />
@@ -275,7 +276,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
     <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>

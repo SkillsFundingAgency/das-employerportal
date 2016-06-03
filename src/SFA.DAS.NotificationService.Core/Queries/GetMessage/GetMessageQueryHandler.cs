@@ -23,7 +23,7 @@ namespace SFA.DAS.NotificationService.Application.Queries.GetMessage
             {
                 MessageType = storedMessage.MessageType,
                 MessageId = storedMessage.MessageId,
-                Data = storedMessage.Data
+                Content = storedMessage.Content
             };
         }
     }
