@@ -26,7 +26,7 @@ namespace SFA.DAS.EmployerPortal.Web.DependencyResolution {
 	
     public class DefaultRegistry : Registry {
         #region Constructors and Destructors
-        private const string ServiceName = "SFA.DAS.NotificationService";
+        private const string ServiceName = "SFA.DAS.EmployerPortal";
         public DefaultRegistry() {
 
 
@@ -42,7 +42,6 @@ namespace SFA.DAS.EmployerPortal.Web.DependencyResolution {
                     scan.WithDefaultConventions();
 					scan.With(new ControllerConvention());
                 });
-            //For<IExample>().Use<Example>();
 
             var configurationService = new ConfigurationService(
                 new AzureTableStorageConfigurationRepository(CloudConfigurationManager.GetSetting("ConfigurationStorageConnectionString")),

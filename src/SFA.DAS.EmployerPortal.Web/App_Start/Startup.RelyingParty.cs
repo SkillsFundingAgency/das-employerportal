@@ -14,21 +14,24 @@ namespace SFA.DAS.EmployerPortal.Web
 {
     public partial class Startup
     {
-        private void ConfigureRelyingParty(IAppBuilder app, EmployerPortalConfiguration configuration)
+        private void ConfigureRelyingParty(IAppBuilder app, IdentifyingPartyConfiguration configuration)
         {
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = "Cookies"
             });
 
+            var idpUrl = configuration.ApplicationBaseUrl.EndsWith("/")
+                ? configuration.ApplicationBaseUrl + "identity/"
+                : configuration.ApplicationBaseUrl + "/identity/";
             app.UseOpenIdConnectAuthentication(new OpenIdConnectAuthenticationOptions
             {
-                Authority = "https://localhost:44334/identity",
+                Authority = idpUrl,
 
                 ClientId = "employerportal",
                 Scope = "openid profile",
                 ResponseType = "id_token token",
-                RedirectUri = "http://localhost:58887/",
+                RedirectUri = configuration.LoginReturnUrl,
 
                 SignInAsAuthenticationType = "Cookies",
                 UseTokenLifetime = false,

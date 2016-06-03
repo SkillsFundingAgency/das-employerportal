@@ -25,7 +25,7 @@ namespace SFA.DAS.EmployerPortal.Web
                 }
 
                 var configuration = task.Result;
-                ConfigureRelyingParty(app, configuration);
+                ConfigureRelyingParty(app, configuration.IdentifyingParty);
             }).Wait();
         }
     }
