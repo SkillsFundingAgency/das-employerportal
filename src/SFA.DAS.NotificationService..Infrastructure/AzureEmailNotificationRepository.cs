@@ -4,10 +4,11 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 using Newtonsoft.Json;
 using SFA.DAS.Configuration;
+using SFA.DAS.NotificationService.Application;
 using SFA.DAS.NotificationService.Application.DataEntities;
 using SFA.DAS.NotificationService.Application.Interfaces;
 
-namespace SFA.DAS.NotificationService.Application
+namespace SFA.DAS.NotificationService.Infrastructure
 {
     public class AzureEmailNotificationRepository : IMessageNotificationRepository
     {
@@ -16,7 +17,7 @@ namespace SFA.DAS.NotificationService.Application
 
         private readonly CloudStorageAccount _storageAccount;
 
-        public AzureEmailNotificationRepository(IConfigurationService configurationService) 
+        public AzureEmailNotificationRepository(IConfigurationService configurationService)
             : this(configurationService, CloudConfigurationManager.GetSetting("StorageConnectionString"))
         {
         }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -8,7 +8,7 @@ using SFA.DAS.NotificationService.Application;
 using SFA.DAS.NotificationService.Application.Interfaces;
 using SFA.DAS.NotificationService.Application.Messages;
 
-namespace SFA.DAS.NotificationService.Worker.EmailServices
+namespace SFA.DAS.NotificationService.Infrastructure
 {
     public class LocalEmailService : IEmailService
     {

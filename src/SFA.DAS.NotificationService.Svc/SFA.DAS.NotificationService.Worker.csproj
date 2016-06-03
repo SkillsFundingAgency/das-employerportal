@@ -122,8 +122,6 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="DefaultRegistry.cs" />
-    <Compile Include="EmailServices\LocalEmailService.cs" />
-    <Compile Include="EmailServices\SendGridSmtpEmailService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueuedMessageHandler.cs" />
     <Compile Include="WorkerRole.cs" />
@@ -133,6 +131,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SFA.DAS.NotificationService..Infrastructure\SFA.DAS.NotificationService.Infrastructure.csproj">
+      <Project>{23cf7c43-d9ca-4446-aa6f-e0e5d792a200}</Project>
+      <Name>SFA.DAS.NotificationService.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SFA.DAS.NotificationService.Core\SFA.DAS.NotificationService.Application.csproj">
       <Project>{A7D9A608-913C-496D-ACED-4A6D7F2C2758}</Project>
       <Name>SFA.DAS.NotificationService.Application</Name>
