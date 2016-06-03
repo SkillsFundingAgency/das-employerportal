@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System;
 using System.Net.Mail;
 using Newtonsoft.Json;
 using SFA.DAS.Configuration;
 using SFA.DAS.NotificationService.Application;
 using SFA.DAS.NotificationService.Application.Interfaces;
+using SFA.DAS.NotificationService.Application.Messages;
 
-namespace SFA.DAS.NotificationService.Worker.EmailServices
+namespace SFA.DAS.NotificationService.Infrastructure
 {
     public class SendGridSmtpEmailService : IEmailService
     {
@@ -20,7 +19,7 @@ namespace SFA.DAS.NotificationService.Worker.EmailServices
             _configurationService = configurationService;
         }
 
-        public void Send(Dictionary<string, string> items)
+        public void Send(EmailMessage message)
         {
             var config = _configurationService.Get<NotificationServiceConfiguration>();
 
@@ -36,37 +35,20 @@ namespace SFA.DAS.NotificationService.Worker.EmailServices
                     client.Credentials = new System.Net.NetworkCredential(config.SmtpServer.UserName, config.SmtpServer.Password);
                 }
 
-                var mail = new MailMessage(GetItemFromInput(items, "fromEmail"), GetItemFromInput(items, "toEmail"))
+                var mail = new MailMessage(message.ReplyToAddress, message.RecipientsAddress)
                 {
-                    Subject = GetItemFromInput(items, "subject"),
-                    Body = BuildBody(items)
+                    Subject = message.MessageType,
+                    Body = JsonConvert.SerializeObject(message)
                 };
                 client.Send(mail);
             }
         }
 
-        private string BuildBody(Dictionary<string, string> items)
-        {
-            return JsonConvert.SerializeObject(items);
-        }
-
         private int GetPortNumber(string candidate)
         {
-            var port = 25;
+            int port;
 
-            int.TryParse(candidate, out port);
-
-            return port;
-        }
-
-        private string GetItemFromInput(Dictionary<string, string> items, string name)
-        {
-            foreach (var item in items.Where(item => string.Equals(name, item.Key, StringComparison.CurrentCultureIgnoreCase)))
-            {
-                return item.Value;
-            }
-
-            return string.Empty;
+            return int.TryParse(candidate, out port) ? port : 25;
         }
     }
 }

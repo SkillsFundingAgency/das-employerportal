@@ -69,8 +69,9 @@
     </Compile>
     <Compile Include="FakeGuidProvider.cs" />
     <Compile Include="FateTimeProvider.cs" />
+    <Compile Include="GetMessageQueryHandlerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SendMessageCommandHandlerTests.cs" />
+    <Compile Include="SendEmailCommandHandlerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

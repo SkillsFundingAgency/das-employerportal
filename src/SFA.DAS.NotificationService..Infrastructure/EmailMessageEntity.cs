@@ -1,6 +1,6 @@
 ﻿using Microsoft.WindowsAzure.Storage.Table;
 
-namespace SFA.DAS.NotificationService.Application
+namespace SFA.DAS.NotificationService.Infrastructure
 {
     public class EmailMessageEntity : TableEntity
     {
@@ -9,8 +9,8 @@ namespace SFA.DAS.NotificationService.Application
         {
         }
 
-        public EmailMessageEntity() {}
+        public EmailMessageEntity() { }
 
-        public string Data { get; set; }    
+        public string Data { get; set; }
     }
 }

@@ -28,7 +28,7 @@ namespace SFA.DAS.NotificationService.Api.UnitTests
 
             var container = new Container(registry);
 
-            var controller = container.GetInstance<NotificationController>();
+            var controller = container.GetInstance<EmailController>();
 
             Assert.That(controller, Is.Not.Null);
         }

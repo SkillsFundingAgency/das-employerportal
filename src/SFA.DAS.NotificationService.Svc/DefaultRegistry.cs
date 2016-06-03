@@ -9,7 +9,7 @@ using SFA.DAS.Messaging.AzureServiceBus;
 using SFA.DAS.Messaging.FileSystem;
 using SFA.DAS.NotificationService.Application;
 using SFA.DAS.NotificationService.Application.Interfaces;
-using SFA.DAS.NotificationService.Worker.EmailServices;
+using SFA.DAS.NotificationService.Infrastructure;
 using StructureMap.Configuration.DSL;
 
 namespace SFA.DAS.NotificationService.Worker

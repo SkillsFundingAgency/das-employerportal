@@ -4,26 +4,27 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using SFA.DAS.NotificationService.Api.Models;
 using SFA.DAS.NotificationService.Api.Orchestrators;
 
 namespace SFA.DAS.NotificationService.Api.Controllers
 {
-    public class NotificationController : ApiController
+    public class EmailController : ApiController
     {
         private readonly INotificationOrchestrator _orchestrator;
 
-        public NotificationController(INotificationOrchestrator orchestrator)
+        public EmailController(INotificationOrchestrator orchestrator)
         {
             if (orchestrator == null)
                 throw new ArgumentNullException(nameof(orchestrator));
             _orchestrator = orchestrator;
         }
 
-        public async Task<HttpResponseMessage> Post(Dictionary<string, string> notification)
+        public async Task<HttpResponseMessage> Post(EmailViewModel notification)
         {
             return await Task.Run<HttpResponseMessage>(() =>
             {
-                var response = _orchestrator.Post(notification);
+                var response = _orchestrator.SendEmail(notification);
 
                 return new HttpResponseMessage(HttpStatusCode.OK);
             });

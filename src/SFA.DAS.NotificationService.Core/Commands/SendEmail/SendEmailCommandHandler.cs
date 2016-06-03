@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using FluentValidation.Results;
 using MediatR;
+using Newtonsoft.Json;
 using SFA.DAS.Messaging;
 using SFA.DAS.NotificationService.Application.DataEntities;
 using SFA.DAS.NotificationService.Application.Exceptions;
@@ -11,14 +10,14 @@ using SFA.DAS.NotificationService.Application.Messages;
 using SFA.DAS.NotificationService.Application.Services;
 using SFA.DAS.TimeProvider;
 
-namespace SFA.DAS.NotificationService.Application.Commands.SendMessage
+namespace SFA.DAS.NotificationService.Application.Commands.SendEmail
 {
-    public class SendMessageCommandHandler : RequestHandler<SendMessageCommand>
+    public class SendEmailCommandHandler : RequestHandler<SendEmailCommand>
     {
         private readonly IMessageNotificationRepository _emailNotificationRepository;
         private readonly MessagingService _messagingService;
 
-        public SendMessageCommandHandler(IMessageNotificationRepository emailNotificationRepository, MessagingService messagingService)
+        public SendEmailCommandHandler(IMessageNotificationRepository emailNotificationRepository, MessagingService messagingService)
         {
             if (emailNotificationRepository == null)
                 throw new ArgumentNullException(nameof(emailNotificationRepository));
@@ -28,41 +27,44 @@ namespace SFA.DAS.NotificationService.Application.Commands.SendMessage
             _messagingService = messagingService;
         }
 
-        protected override void HandleCore(SendMessageCommand message)
+        protected override void HandleCore(SendEmailCommand message)
         {
             var validationResult = Validate(message);
 
             if (!validationResult.IsValid)
                 throw new CustomValidationException(validationResult);
 
-            var messageType = GetMessageType(message);
             var messageId = GuidProvider.Current.NewGuid().ToString();
-            message.Data.Add("Timestamp", DateTimeProvider.Current.UtcNow.ToString("yyyy-MM-dd HH':'mm':'ss"));
 
             _emailNotificationRepository.Create(new MessageData
             {
                 MessageId = messageId,
-                MessageType = messageType,
-                Data = message.Data
+                MessageType = message.MessageType,
+                Content = new MessageContent
+                {
+                    UserId = message.UserId,
+                    Timestamp = DateTimeProvider.Current.UtcNow,
+                    MessageFormat = MessageFormat.Email,
+                    ForceFormat = message.ForceFormat,
+                    Data = JsonConvert.SerializeObject(new EmailContent
+                    {
+                        RecipientsAddress = message.RecipientsAddress,
+                        ReplyToAddress = message.ReplyToAddress,
+                        Data = message.Data
+                    })
+                }
             });
 
             _messagingService.PublishAsync(new QueueMessage
             {
-                MessageType = messageType,
+                MessageType = message.MessageType,
                 MessageId = messageId
             }).Wait();
         }
 
-        private string GetMessageType(SendMessageCommand message)
+        private ValidationResult Validate(SendEmailCommand cmd)
         {
-            var item = message.Data.FirstOrDefault(x => x.Key.ToUpper() == "MESSAGETYPE");
-
-            return !item.Equals(default(KeyValuePair<string, string>)) ? item.Value : string.Empty;
-        }
-
-        private ValidationResult Validate(SendMessageCommand cmd)
-        {
-            var validator = new SendMessageCommandValidator();
+            var validator = new SendEmailCommandValidator();
 
             return validator.Validate(cmd);
         }

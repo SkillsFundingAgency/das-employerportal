@@ -1,6 +1,8 @@
 ﻿using System;
 using MediatR;
+using Newtonsoft.Json;
 using SFA.DAS.Messaging;
+using SFA.DAS.NotificationService.Application.DataEntities;
 using SFA.DAS.NotificationService.Application.Interfaces;
 using SFA.DAS.NotificationService.Application.Messages;
 using SFA.DAS.NotificationService.Application.Queries.GetMessage;
@@ -38,7 +40,23 @@ namespace SFA.DAS.NotificationService.Worker
                     MessageId = message.Content.MessageId
                 });
 
-                _emailService.Send(savedMessage.Data);
+                if (savedMessage.Content != null)
+                {
+                    var messageFormat = savedMessage.Content.MessageFormat;
+                    if (messageFormat == MessageFormat.Email)
+                    {
+                        var emailContent = JsonConvert.DeserializeObject<EmailContent>(savedMessage.Content.Data);
+
+                        _emailService.Send(new EmailMessage
+                        {
+                            MessageType = savedMessage.MessageType,
+                            UserId = savedMessage.Content.UserId,
+                            RecipientsAddress = emailContent.RecipientsAddress,
+                            ReplyToAddress = emailContent.ReplyToAddress,
+                            Data = emailContent.Data
+                        });
+                    }
+                }
 
                 message.CompleteAsync().Wait();
             }
