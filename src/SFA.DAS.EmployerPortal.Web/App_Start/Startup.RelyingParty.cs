@@ -23,7 +23,7 @@ namespace SFA.DAS.EmployerPortal.Web
 
             app.UseOpenIdConnectAuthentication(new OpenIdConnectAuthenticationOptions
             {
-                Authority = "https://localhost/identity",
+                Authority = "https://localhost:44334/identity",
 
                 ClientId = "employerportal",
                 Scope = "openid profile",

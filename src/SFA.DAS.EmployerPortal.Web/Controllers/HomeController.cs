@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Web;
+using System.Web.Mvc;
 using SFA.DAS.EmployerUsers.WebClientComponents;
 
 namespace SFA.DAS.EmployerPortal.Web.Controllers
@@ -8,6 +9,12 @@ namespace SFA.DAS.EmployerPortal.Web.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult Logout()
+        {
+            Request.GetOwinContext().Authentication.SignOut();
+            return RedirectToAction("Index");
         }
 
         public ActionResult About()
