@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using FluentValidation.Results;
 using MediatR;
 using Newtonsoft.Json;
@@ -13,7 +14,7 @@ using SFA.DAS.TimeProvider;
 
 namespace SFA.DAS.NotificationService.Application.Commands.SendEmail
 {
-    public class SendEmailCommandHandler : RequestHandler<SendEmailCommand>
+    public class SendEmailCommandHandler : AsyncRequestHandler<SendEmailCommand>
     {
         private static readonly ILogger _logger = LogManager.GetCurrentClassLogger();
         private readonly IMessageNotificationRepository _emailNotificationRepository;
@@ -29,7 +30,7 @@ namespace SFA.DAS.NotificationService.Application.Commands.SendEmail
             _messagingService = messagingService;
         }
 
-        protected override void HandleCore(SendEmailCommand message)
+        protected override async Task HandleCore(SendEmailCommand message)
         {
             var validationResult = Validate(message);
 
@@ -58,11 +59,11 @@ namespace SFA.DAS.NotificationService.Application.Commands.SendEmail
             });
             _logger.Debug($"Stored message '{messageId}' in data store");
 
-            _messagingService.PublishAsync(new QueueMessage
+            await _messagingService.PublishAsync(new QueueMessage
             {
                 MessageType = message.MessageType,
                 MessageId = messageId
-            }).Wait();
+            });
             _logger.Debug($"Published message '{messageId}' to queue");
         }
 

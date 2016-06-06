@@ -22,12 +22,11 @@ namespace SFA.DAS.NotificationService.Api.Controllers
 
         public async Task<HttpResponseMessage> Post(EmailViewModel notification)
         {
-            return await Task.Run<HttpResponseMessage>(() =>
-            {
-                var response = _orchestrator.SendEmail(notification);
 
-                return new HttpResponseMessage(HttpStatusCode.OK);
-            });
+            await _orchestrator.SendEmail(notification);
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+
         }
     }
 }

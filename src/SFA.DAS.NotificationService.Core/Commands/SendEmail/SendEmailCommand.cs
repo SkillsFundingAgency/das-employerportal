@@ -3,7 +3,7 @@ using MediatR;
 
 namespace SFA.DAS.NotificationService.Application.Commands.SendEmail
 {
-    public class SendEmailCommand : IRequest
+    public class SendEmailCommand : IAsyncRequest
     {
         public string UserId { get; set; }
         public string MessageType { get; set; }

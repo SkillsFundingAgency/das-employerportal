@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using MediatR;
 using NLog;
 using SFA.DAS.NotificationService.Api.Core;
@@ -21,11 +22,11 @@ namespace SFA.DAS.NotificationService.Api.Orchestrators
             _mediator = mediator;
         }
 
-        public OrchestratorResponse SendEmail(EmailViewModel notification)
+        public async Task<OrchestratorResponse> SendEmail(EmailViewModel notification)
         {
             try
             {
-                _mediator.Send(new SendEmailCommand
+                await _mediator.SendAsync(new SendEmailCommand
                 {
                     UserId = notification.UserId,
                     MessageType = notification.MessageType,
