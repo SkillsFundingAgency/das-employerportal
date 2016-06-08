@@ -7,6 +7,7 @@
       <Setting name="StorageConnectionString" value="__StorageConnectionString__" />
       <Setting name="ConfigurationStorageConnectionString" value="__ConfigurationStorageConnectionString__" />
       <Setting name="EnvironmentName" value="__EnvironmentName__" />
+      <Setting name="LogLevel" value="Warn" />
     </ConfigurationSettings>
     <Certificates>
     </Certificates>
@@ -18,6 +19,7 @@
       <Setting name="StorageConnectionString" value="__StorageConnectionString__" />
       <Setting name="ConfigurationStorageConnectionString" value="__ConfigurationStorageConnectionString__" />
       <Setting name="EnvironmentName" value="__EnvironmentName__" />
+      <Setting name="LogLevel" value="Warn" />
     </ConfigurationSettings>
   </Role>
   <Role name="SFA.DAS.NotificationService.Worker">
@@ -27,6 +29,7 @@
       <Setting name="StorageConnectionString" value="__StorageConnectionString__" />
       <Setting name="ConfigurationStorageConnectionString" value="__ConfigurationStorageConnectionString__" />
       <Setting name="EnvironmentName" value="__EnvironmentName__" />
+      <Setting name="LogLevel" value="Warn" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>
