@@ -1,25 +1,35 @@
+using System;
 using System.Diagnostics;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
+using NLog;
 using StructureMap;
 
 namespace SFA.DAS.NotificationService.Worker
 {
     public class WorkerRole : RoleEntryPoint
     {
+        private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
+
         private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         private readonly ManualResetEvent runCompleteEvent = new ManualResetEvent(false);
         private Container _container;
 
         public override void Run()
         {
+            Logger.Info("Running");
             Trace.TraceInformation("SFA.DAS.NotificationService.Worker is running");
 
             try
             {
                 this.RunAsync(this.cancellationTokenSource.Token).Wait();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, ex.Message);
+                throw;
             }
             finally
             {
@@ -29,6 +39,8 @@ namespace SFA.DAS.NotificationService.Worker
 
         public override bool OnStart()
         {
+            Logger.Info("Starting");
+
             var registry = new DefaultRegistry();
 
             _container = new Container(registry);
@@ -48,6 +60,8 @@ namespace SFA.DAS.NotificationService.Worker
 
         public override void OnStop()
         {
+            Logger.Info("Stopping");
+
             Trace.TraceInformation("SFA.DAS.NotificationService.Worker is stopping");
 
             this.cancellationTokenSource.Cancel();
@@ -60,16 +74,21 @@ namespace SFA.DAS.NotificationService.Worker
 
         private async Task RunAsync(CancellationToken cancellationToken)
         {
-            // TODO: Replace the following with your own logic.
+            var handler = _container.GetInstance<QueuedMessageHandler>();
+
             while (!cancellationToken.IsCancellationRequested)
             {
-                Trace.TraceInformation("Working");
+                Logger.Debug("Polling");
+                try
+                {
+                    handler.Handle();
 
-                var handler = _container.GetInstance<QueuedMessageHandler>();
-
-                handler.Handle();
-
-                await Task.Delay(1000);
+                    await Task.Delay(1000);
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex, ex.Message);
+                }
             }
         }
     }
