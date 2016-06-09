@@ -22,9 +22,7 @@ namespace SFA.DAS.EmployerPortal.Web
                 AuthenticationType = "Cookies"
             });
 
-            var idpUrl = configuration.ApplicationBaseUrl.EndsWith("/")
-                ? configuration.ApplicationBaseUrl + "identity/"
-                : configuration.ApplicationBaseUrl + "/identity/";
+            var idpUrl = configuration.ApplicationBaseUrl;
             app.UseOpenIdConnectAuthentication(new OpenIdConnectAuthenticationOptions
             {
                 Authority = idpUrl,

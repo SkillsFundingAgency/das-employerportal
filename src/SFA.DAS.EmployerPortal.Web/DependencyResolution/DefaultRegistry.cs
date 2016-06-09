@@ -45,7 +45,7 @@ namespace SFA.DAS.EmployerPortal.Web.DependencyResolution {
 
             var configurationService = new ConfigurationService(
                 new AzureTableStorageConfigurationRepository(CloudConfigurationManager.GetSetting("ConfigurationStorageConnectionString")),
-                new ConfigurationOptions(ServiceName, environment, "1.0"));
+                new ConfigurationOptions(ServiceName, environment, "Pirean"));
             For<IConfigurationService>().Use(configurationService);
         }
 
