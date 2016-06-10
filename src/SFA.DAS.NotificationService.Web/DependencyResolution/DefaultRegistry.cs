@@ -16,11 +16,14 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Configuration;
+using System.Web.WebPages;
 using FluentValidation;
 using MediatR;
 using Microsoft.WindowsAzure;
 using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
+using SFA.DAS.Configuration.FileStorage;
 using SFA.DAS.Messaging;
 using SFA.DAS.Messaging.AzureServiceBus;
 using SFA.DAS.Messaging.FileSystem;
@@ -57,9 +60,21 @@ namespace SFA.DAS.NotificationService.Api.DependencyResolution {
                 });
             For<SingleInstanceFactory>().Use<SingleInstanceFactory>(ctx => t => ctx.GetInstance(t));
             For<MultiInstanceFactory>().Use<MultiInstanceFactory>(ctx => t => ctx.GetAllInstances(t));
-            
+
+            IConfigurationRepository configurationRepository;
+
+            if (ConfigurationManager.AppSettings["LocalConfig"].AsBool())
+            {
+                configurationRepository = new FileStorageConfigurationRepository();
+            }
+            else
+            {
+                configurationRepository = new AzureTableStorageConfigurationRepository(CloudConfigurationManager.GetSetting("ConfigurationStorageConnectionString"));
+            }
+
+
             var configurationService = new ConfigurationService(
-                new AzureTableStorageConfigurationRepository(CloudConfigurationManager.GetSetting("ConfigurationStorageConnectionString")),
+                configurationRepository,
                 new ConfigurationOptions(ServiceName, environment, "1.0"));
             For<IConfigurationService>().Use(configurationService);
             if (environment == DevEnv)

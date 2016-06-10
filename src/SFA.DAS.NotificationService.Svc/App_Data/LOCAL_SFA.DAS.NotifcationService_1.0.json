@@ -1,0 +1,12 @@
+﻿{
+  "SmtpServer": {
+    "ServerName": "",
+    "UserName": "",
+    "Password": "",
+    "Port": ""
+  },
+  "ServiceBusConfiguration": {
+    "ConnectionString": "",
+    "QueueName": ""
+  }
+}
