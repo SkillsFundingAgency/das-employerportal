@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
@@ -31,7 +30,7 @@ namespace SFA.DAS.NotificationService.Infrastructure
             _storageAccount = CloudStorageAccount.Parse(storageConnectionString);
         }
 
-        public async Task Create(MessageData message)
+        public void Create(MessageData message)
         {
             var tableClient = _storageAccount.CreateCloudTableClient();
 
@@ -46,7 +45,7 @@ namespace SFA.DAS.NotificationService.Infrastructure
             table.Execute(insertOperation);
         }
 
-        public async Task<MessageData> Get(string messageType, string messageId)
+        public MessageData Get(string messageType, string messageId)
         {
             var messageData = new MessageData
             {

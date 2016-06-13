@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Threading.Tasks;
 using MediatR;
 using SFA.DAS.NotificationService.Application.Interfaces;
 
 namespace SFA.DAS.NotificationService.Application.Queries.GetMessage
 {
-    public class GetMessageQueryHandler : IAsyncRequestHandler<GetMessageQueryRequest, GetMessageQueryResponse>
+    public class GetMessageQueryHandler : IRequestHandler<GetMessageQueryRequest, GetMessageQueryResponse>
     {
         private readonly IMessageNotificationRepository _messageRepository;
 
@@ -16,9 +15,9 @@ namespace SFA.DAS.NotificationService.Application.Queries.GetMessage
             _messageRepository = messageRepository;
         }
 
-        public async Task<GetMessageQueryResponse> Handle(GetMessageQueryRequest message)
+        public GetMessageQueryResponse Handle(GetMessageQueryRequest message)
         {
-            var storedMessage = await _messageRepository.Get(message.MessageType, message.MessageId);
+            var storedMessage = _messageRepository.Get(message.MessageType, message.MessageId);
 
             return new GetMessageQueryResponse
             {

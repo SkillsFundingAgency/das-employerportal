@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Threading.Tasks;
 using MediatR;
 using Newtonsoft.Json;
 using SFA.DAS.Messaging;
+using SFA.DAS.NotificationService.Application.DataEntities;
 using SFA.DAS.NotificationService.Application.Interfaces;
 using SFA.DAS.NotificationService.Application.Messages;
 using SFA.DAS.NotificationService.Application.Queries.GetMessage;
@@ -28,13 +28,13 @@ namespace SFA.DAS.NotificationService.Worker
             _emailService = emailService;
         }
 
-        public async Task Handle()
+        public void Handle()
         {
-            var message = await _messagingService.ReceiveAsync<QueueMessage>();
+            var message = _messagingService.ReceiveAsync<QueueMessage>().Result;
 
             if (message.Content != null)
             {
-                var savedMessage = await _mediator.SendAsync(new GetMessageQueryRequest
+                var savedMessage = _mediator.Send(new GetMessageQueryRequest
                 {
                     MessageType = message.Content.MessageType,
                     MessageId = message.Content.MessageId
@@ -58,7 +58,7 @@ namespace SFA.DAS.NotificationService.Worker
                     }
                 }
 
-                await message.CompleteAsync();
+                message.CompleteAsync().Wait();
             }
 
         }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NSubstitute;
 using NUnit.Framework;
@@ -10,7 +9,7 @@ using SFA.DAS.NotificationService.Application.Queries.GetMessage;
 using SFA.DAS.NotificationService.Application.Services;
 using SFA.DAS.TimeProvider;
 
-namespace SFA.DAS.NotificationService.Application.UnitTests.QueryTests
+namespace SFA.DAS.NotificationService.Application.UnitTests
 {
     [TestFixture]
     public class GetMessageQueryHandlerTests
@@ -26,7 +25,7 @@ namespace SFA.DAS.NotificationService.Application.UnitTests.QueryTests
         }
 
         [Test]
-        public async Task ReturnsEmailMessage()
+        public void ReturnsEmailMessage()
         {
             var userId = GuidProvider.Current.NewGuid().ToString();
 
@@ -62,7 +61,7 @@ namespace SFA.DAS.NotificationService.Application.UnitTests.QueryTests
                 }
             });
 
-            var response = await _handler.Handle(request);
+            var response = _handler.Handle(request);
 
             Assert.That(response.Content, Is.Not.Null);
             Assert.That(response.Content.UserId, Is.EqualTo(userId));

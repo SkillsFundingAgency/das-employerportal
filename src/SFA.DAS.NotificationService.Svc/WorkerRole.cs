@@ -67,7 +67,7 @@ namespace SFA.DAS.NotificationService.Worker
 
                 var handler = _container.GetInstance<QueuedMessageHandler>();
 
-                await handler.Handle();
+                handler.Handle();
 
                 await Task.Delay(1000);
             }

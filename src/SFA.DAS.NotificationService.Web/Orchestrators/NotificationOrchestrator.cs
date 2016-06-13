@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using FluentValidation.Results;
 using MediatR;
 using NLog;
 using SFA.DAS.NotificationService.Api.Core;
@@ -26,7 +26,7 @@ namespace SFA.DAS.NotificationService.Api.Orchestrators
         {
             try
             {
-                var cmd = new SendEmailCommand
+                await _mediator.SendAsync(new SendEmailCommand
                 {
                     UserId = notification.UserId,
                     MessageType = notification.MessageType,
@@ -34,14 +34,7 @@ namespace SFA.DAS.NotificationService.Api.Orchestrators
                     RecipientsAddress = notification.RecipientsAddress,
                     ReplyToAddress = notification.ReplyToAddress,
                     Data = notification.Data
-                };
-
-                var validationResult = ValidateCommand(cmd);
-
-                if (!validationResult.IsValid)
-                    return GetOrchestratorResponse(NotificationOrchestratorCodes.Post.ValidationFailure, validationResult: validationResult);
-
-                await _mediator.SendAsync(cmd);
+                });
 
                 return GetOrchestratorResponse(NotificationOrchestratorCodes.Post.Success);
             }
@@ -50,13 +43,6 @@ namespace SFA.DAS.NotificationService.Api.Orchestrators
                 _logger.Error(ex, ex.Message);
                 throw;
             }
-        }
-
-        private static ValidationResult ValidateCommand(SendEmailCommand cmd)
-        {
-            var validator = new SendEmailCommandValidator();
-
-            return validator.Validate(cmd);
         }
     }
 }

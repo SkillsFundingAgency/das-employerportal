@@ -23,11 +23,7 @@ namespace SFA.DAS.NotificationService.Api.Controllers
         public async Task<HttpResponseMessage> Post(EmailViewModel notification)
         {
 
-            var response = await _orchestrator.SendEmail(notification);
-
-            if (response.Code == NotificationOrchestratorCodes.Post.ValidationFailure)
-                return new HttpResponseMessage(HttpStatusCode.BadRequest);
-
+            await _orchestrator.SendEmail(notification);
 
             return new HttpResponseMessage(HttpStatusCode.OK);
 
