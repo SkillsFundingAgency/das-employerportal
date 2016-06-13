@@ -1,6 +1,9 @@
-﻿using System.Web;
+﻿using System.Linq;
+using System.Security.Claims;
+using System.Web;
 using System.Web.Mvc;
 using SFA.DAS.EmployerUsers.WebClientComponents;
+using AuthorizationContext = System.Web.Mvc.AuthorizationContext;
 
 namespace SFA.DAS.EmployerPortal.Web.Controllers
 {
@@ -24,12 +27,32 @@ namespace SFA.DAS.EmployerPortal.Web.Controllers
             return View();
         }
 
-        [AuthoriseActiveUser]
+        [AuthoriseActiveUser2]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+    }
+
+    public class AuthoriseActiveUser2Attribute : AuthorizeAttribute
+    {
+        public override void OnAuthorization(AuthorizationContext filterContext)
+        {
+            base.OnAuthorization(filterContext);
+            if (filterContext.Result is HttpUnauthorizedResult)
+            {
+                return;
+            }
+
+            var user = filterContext.HttpContext.User as ClaimsPrincipal;
+            var requiresVerification = user?.Claims.FirstOrDefault(c => c.Type == DasClaimTypes.RequiresVerification)?.Value;
+            if (string.IsNullOrEmpty(requiresVerification) || requiresVerification.Equals("true", System.StringComparison.OrdinalIgnoreCase))
+            {
+                var configuration = ConfigurationFactory.Current.Get();
+                filterContext.Result = new RedirectResult(configuration.AccountActivationUrl);
+            }
         }
     }
 }

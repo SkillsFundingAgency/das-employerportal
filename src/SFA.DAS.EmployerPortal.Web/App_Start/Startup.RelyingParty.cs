@@ -27,8 +27,9 @@ namespace SFA.DAS.EmployerPortal.Web
             {
                 Authority = idpUrl,
 
-                ClientId = "employerportal",
-                Scope = "openid profile",
+                ClientId = "000123",//"employerportal",
+                ClientSecret = "7wKJNYFaKKg4FxUdi8_R75GGYsiWezvAbcdN1uSumE4",
+                Scope = "openid",
                 ResponseType = "id_token token",
                 RedirectUri = configuration.LoginReturnUrl,
 
