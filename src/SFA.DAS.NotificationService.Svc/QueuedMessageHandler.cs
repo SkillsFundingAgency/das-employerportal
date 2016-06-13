@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Threading.Tasks;
 using MediatR;
 using Newtonsoft.Json;
 using NLog;
 using SFA.DAS.Messaging;
-using SFA.DAS.NotificationService.Application.DataEntities;
 using SFA.DAS.NotificationService.Application.Interfaces;
 using SFA.DAS.NotificationService.Application.Messages;
 using SFA.DAS.NotificationService.Application.Queries.GetMessage;
@@ -32,12 +32,13 @@ namespace SFA.DAS.NotificationService.Worker
             _emailService = emailService;
         }
 
-        public void Handle()
+        public async Task Handle()
         {
-            var message = _messagingService.ReceiveAsync<QueueMessage>().Result;
+            var message = await _messagingService.ReceiveAsync<QueueMessage>();
 
             if (message.Content != null)
             {
+
                 Logger.Info($"Received message {message.Content.MessageId}");
 
                 try
@@ -65,14 +66,15 @@ namespace SFA.DAS.NotificationService.Worker
                             });
                         }
                     }
-
-                    message.CompleteAsync().Wait();
+                    
+                    await message.CompleteAsync();
                     Logger.Info($"Finished processing message {message.Content.MessageId}");
                 }
                 catch (Exception ex)
                 {
                     Logger.Error(ex, $"Error processing message {message.Content.MessageId} - {ex.Message}");
                 }
+
             }
         }
     }

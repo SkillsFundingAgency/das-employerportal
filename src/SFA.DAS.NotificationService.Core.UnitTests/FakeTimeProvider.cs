@@ -3,11 +3,11 @@ using SFA.DAS.TimeProvider;
 
 namespace SFA.DAS.NotificationService.Application.UnitTests
 {
-    public class FateTimeProvider : DateTimeProvider
+    public class FakeTimeProvider : DateTimeProvider
     {
         private readonly DateTime _dateTime;
 
-        public FateTimeProvider(DateTime dateTime)
+        public FakeTimeProvider(DateTime dateTime)
         {
             _dateTime = dateTime;
         }

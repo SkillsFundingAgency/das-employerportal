@@ -81,7 +81,7 @@ namespace SFA.DAS.NotificationService.Worker
                 Logger.Debug("Polling");
                 try
                 {
-                    handler.Handle();
+                    await handler.Handle();
 
                     await Task.Delay(1000);
                 }
