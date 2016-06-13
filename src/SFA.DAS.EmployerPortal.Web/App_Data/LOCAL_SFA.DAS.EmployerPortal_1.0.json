@@ -1,0 +1,6 @@
+﻿{
+  "IdentifyingParty": {
+    "ApplicationBaseUrl": "https://localhost:44334/",
+    "LoginReturnUrl": "http://locahost"
+  }
+}

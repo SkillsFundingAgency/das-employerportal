@@ -16,7 +16,8 @@ namespace SFA.DAS.NotificationService.Application.Commands.SendEmail
 {
     public class SendEmailCommandHandler : AsyncRequestHandler<SendEmailCommand>
     {
-        private static readonly ILogger _logger = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
+
         private readonly IMessageNotificationRepository _emailNotificationRepository;
         private readonly MessagingService _messagingService;
 
@@ -32,12 +33,15 @@ namespace SFA.DAS.NotificationService.Application.Commands.SendEmail
 
         protected override async Task HandleCore(SendEmailCommand message)
         {
+            var messageId = GuidProvider.Current.NewGuid().ToString();
+
+            Logger.Debug($"Received SendEmailCommand for message type {message.MessageType} to send to {message.RecipientsAddress} (message id: {messageId})");
+
             var validationResult = Validate(message);
 
             if (!validationResult.IsValid)
                 throw new CustomValidationException(validationResult);
 
-            var messageId = GuidProvider.Current.NewGuid().ToString();
 
             _emailNotificationRepository.Create(new MessageData
             {
@@ -57,14 +61,14 @@ namespace SFA.DAS.NotificationService.Application.Commands.SendEmail
                     })
                 }
             });
-            _logger.Debug($"Stored message '{messageId}' in data store");
+            Logger.Debug($"Stored message '{messageId}' in data store");
 
             await _messagingService.PublishAsync(new QueueMessage
             {
                 MessageType = message.MessageType,
                 MessageId = messageId
             });
-            _logger.Debug($"Published message '{messageId}' to queue");
+            Logger.Debug($"Published message '{messageId}' to queue");
         }
 
         private ValidationResult Validate(SendEmailCommand cmd)

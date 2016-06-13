@@ -13,6 +13,7 @@
       <Setting name="StorageConnectionString" />
       <Setting name="ConfigurationStorageConnectionString" />
       <Setting name="EnvironmentName" />
+      <Setting name="LogLevel" />
     </ConfigurationSettings>
     <Endpoints>
       <InputEndpoint name="Endpoint1" protocol="http" port="80" />
@@ -33,6 +34,7 @@
       <Setting name="StorageConnectionString" />
       <Setting name="ConfigurationStorageConnectionString" />
       <Setting name="EnvironmentName" />
+      <Setting name="LogLevel" />
     </ConfigurationSettings>
     <Endpoints>
       <InputEndpoint name="Endpoint1" protocol="http" port="8080" />
@@ -44,6 +46,7 @@
       <Setting name="StorageConnectionString" />
       <Setting name="ConfigurationStorageConnectionString" />
       <Setting name="EnvironmentName" />
+      <Setting name="LogLevel" />
     </ConfigurationSettings>
   </WorkerRole>
 </ServiceDefinition>

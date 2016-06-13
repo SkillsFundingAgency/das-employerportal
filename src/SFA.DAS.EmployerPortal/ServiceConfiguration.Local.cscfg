@@ -7,6 +7,7 @@
       <Setting name="StorageConnectionString" value="UseDevelopmentStorage=true" />
       <Setting name="ConfigurationStorageConnectionString" value="UseDevelopmentStorage=true" />
       <Setting name="EnvironmentName" value="LOCAL" />
+      <Setting name="LogLevel" value="Debug" />
     </ConfigurationSettings>
     <Certificates>
     </Certificates>
@@ -18,6 +19,7 @@
       <Setting name="StorageConnectionString" value="UseDevelopmentStorage=true" />
       <Setting name="ConfigurationStorageConnectionString" value="UseDevelopmentStorage=true" />
       <Setting name="EnvironmentName" value="LOCAL" />
+      <Setting name="LogLevel" value="Debug" />
     </ConfigurationSettings>
   </Role>
   <Role name="SFA.DAS.NotificationService.Worker">
@@ -27,6 +29,7 @@
       <Setting name="StorageConnectionString" value="UseDevelopmentStorage=true" />
       <Setting name="ConfigurationStorageConnectionString" value="UseDevelopmentStorage=true" />
       <Setting name="EnvironmentName" value="LOCAL" />
+      <Setting name="LogLevel" value="Debug" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>

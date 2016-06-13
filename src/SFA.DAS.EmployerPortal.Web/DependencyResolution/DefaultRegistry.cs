@@ -16,9 +16,12 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Configuration;
+using System.Web.WebPages;
 using Microsoft.WindowsAzure;
 using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
+using SFA.DAS.Configuration.FileStorage;
 
 namespace SFA.DAS.EmployerPortal.Web.DependencyResolution {
     using StructureMap.Configuration.DSL;
@@ -43,8 +46,19 @@ namespace SFA.DAS.EmployerPortal.Web.DependencyResolution {
 					scan.With(new ControllerConvention());
                 });
 
+            IConfigurationRepository configurationRepository;
+
+            if (ConfigurationManager.AppSettings["LocalConfig"].AsBool())
+            {
+                configurationRepository = new FileStorageConfigurationRepository();
+            }
+            else
+            {
+                configurationRepository = new AzureTableStorageConfigurationRepository(CloudConfigurationManager.GetSetting("ConfigurationStorageConnectionString"));
+            }
+
             var configurationService = new ConfigurationService(
-                new AzureTableStorageConfigurationRepository(CloudConfigurationManager.GetSetting("ConfigurationStorageConnectionString")),
+                configurationRepository,
                 new ConfigurationOptions(ServiceName, environment, "1.0"));
             For<IConfigurationService>().Use(configurationService);
         }
