@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentValidation, Version=6.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.6.2.1.0\lib\Net45\FluentValidation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MediatR, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MediatR.2.0.2\lib\net45\MediatR.dll</HintPath>
       <Private>True</Private>
@@ -68,10 +72,11 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="FakeGuidProvider.cs" />
-    <Compile Include="FateTimeProvider.cs" />
-    <Compile Include="GetMessageQueryHandlerTests.cs" />
+    <Compile Include="FakeTimeProvider.cs" />
+    <Compile Include="QueryTests\GetMessageQueryHandlerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SendEmailCommandHandlerTests.cs" />
+    <Compile Include="CommandTests\SendEmailCommandHandlerTests.cs" />
+    <Compile Include="SendEmailCommandValidatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

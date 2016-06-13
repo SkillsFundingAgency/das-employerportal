@@ -39,7 +39,21 @@ namespace SFA.DAS.NotificationService.Application.Commands.SendEmail
 
             var messageId = GuidProvider.Current.NewGuid().ToString();
 
-            _emailNotificationRepository.Create(new MessageData
+            await _emailNotificationRepository.Create(CreateMessageData(message, messageId));
+
+            _logger.Debug($"Stored message '{messageId}' in data store");
+
+            await _messagingService.PublishAsync(new QueueMessage
+            {
+                MessageType = message.MessageType,
+                MessageId = messageId
+            });
+            _logger.Debug($"Published message '{messageId}' to queue");
+        }
+
+        private static MessageData CreateMessageData(SendEmailCommand message, string messageId)
+        {
+            return new MessageData
             {
                 MessageId = messageId,
                 MessageType = message.MessageType,
@@ -56,15 +70,7 @@ namespace SFA.DAS.NotificationService.Application.Commands.SendEmail
                         Data = message.Data
                     })
                 }
-            });
-            _logger.Debug($"Stored message '{messageId}' in data store");
-
-            await _messagingService.PublishAsync(new QueueMessage
-            {
-                MessageType = message.MessageType,
-                MessageId = messageId
-            });
-            _logger.Debug($"Published message '{messageId}' to queue");
+            };
         }
 
         private ValidationResult Validate(SendEmailCommand cmd)
