@@ -45,14 +45,14 @@ namespace SFA.DAS.NotificationService.Application.Commands.SendEmail
 
             await _emailNotificationRepository.Create(CreateMessageData(message, messageId));
 
-            _logger.Debug($"Stored message '{messageId}' in data store");
+            Logger.Debug($"Stored message '{messageId}' in data store");
 
             await _messagingService.PublishAsync(new QueueMessage
             {
                 MessageType = message.MessageType,
                 MessageId = messageId
             });
-            _logger.Debug($"Published message '{messageId}' to queue");
+            Logger.Debug($"Published message '{messageId}' to queue");
         }
 
         private static MessageData CreateMessageData(SendEmailCommand message, string messageId)

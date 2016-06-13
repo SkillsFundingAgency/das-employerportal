@@ -43,7 +43,7 @@ namespace SFA.DAS.NotificationService.Worker
 
                 try
                 {
-                    var savedMessage = _mediator.Send(new GetMessageQueryRequest
+                    var savedMessage = await _mediator.SendAsync(new GetMessageQueryRequest
                     {
                         MessageType = message.Content.MessageType,
                         MessageId = message.Content.MessageId
