@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Moq;
 using Newtonsoft.Json;
-using NSubstitute;
 using NUnit.Framework;
 using SFA.DAS.NotificationService.Application.DataEntities;
 using SFA.DAS.NotificationService.Application.Interfaces;
@@ -15,14 +15,14 @@ namespace SFA.DAS.NotificationService.Application.UnitTests.QueryTests
     [TestFixture]
     public class GetMessageQueryHandlerTests
     {
-        private IMessageNotificationRepository _messageNotificationRepository;
+        private Mock<IMessageNotificationRepository> _messageNotificationRepository;
         private GetMessageQueryHandler _handler;
 
         [SetUp]
         public void Setup()
         {
-            _messageNotificationRepository = Substitute.For<IMessageNotificationRepository>();
-            _handler = new GetMessageQueryHandler(_messageNotificationRepository);
+            _messageNotificationRepository = new Mock<IMessageNotificationRepository>();
+            _handler = new GetMessageQueryHandler(_messageNotificationRepository.Object);
         }
 
         [Test]
@@ -48,7 +48,7 @@ namespace SFA.DAS.NotificationService.Application.UnitTests.QueryTests
                 }
             };
 
-            _messageNotificationRepository.Get(request.MessageType, request.MessageId).Returns(new MessageData
+            _messageNotificationRepository.Setup(x => x.Get(request.MessageType, request.MessageId)).ReturnsAsync(new MessageData
             {
                 MessageType = request.MessageType,
                 MessageId = request.MessageId,

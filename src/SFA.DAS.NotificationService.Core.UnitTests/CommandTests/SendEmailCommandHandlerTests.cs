@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using NSubstitute;
+using Moq;
 using NUnit.Framework;
 using SFA.DAS.Messaging;
 using SFA.DAS.NotificationService.Application.Commands.SendEmail;
@@ -16,17 +16,17 @@ namespace SFA.DAS.NotificationService.Application.UnitTests.CommandTests
     [TestFixture]
     public class SendEmailCommandHandlerTests
     {
-        private IMessageNotificationRepository _messageNotificationRepository;
-        private IMessageSubSystem _messageSubSystem;
+        private Mock<IMessageNotificationRepository> _messageNotificationRepository;
+        private Mock<IMessageSubSystem> _messageSubSystem;
         private SendEmailCommandHandler _commandHandler;
 
         [SetUp]
         public void Setup()
         {
-            _messageNotificationRepository = Substitute.For<IMessageNotificationRepository>();
-            _messageSubSystem = Substitute.For<IMessageSubSystem>();
+            _messageNotificationRepository = new Mock<IMessageNotificationRepository>();
+            _messageSubSystem = new Mock<IMessageSubSystem>();
 
-            _commandHandler = new SendEmailCommandHandler(_messageNotificationRepository, new MessagingService(_messageSubSystem));
+            _commandHandler = new SendEmailCommandHandler(_messageNotificationRepository.Object, new MessagingService(_messageSubSystem.Object));
         }
 
         [TearDown]
@@ -51,9 +51,9 @@ namespace SFA.DAS.NotificationService.Application.UnitTests.CommandTests
 
             await _commandHandler.Handle(cmd);
 
-            await _messageNotificationRepository.Received().Create(Arg.Is<MessageData>(x => x.MessageId == messageId.ToString() && x.MessageType == messageType && x.Content.Timestamp == messageTimestamp));
+            _messageNotificationRepository.Verify(repo => repo.Create(It.Is<MessageData>(x => x.MessageId == messageId.ToString() && x.MessageType == messageType && x.Content.Timestamp == messageTimestamp)));
 
-            await _messageSubSystem.Received().EnqueueAsync(Arg.Any<string>());
+            _messageSubSystem.Verify(x => x.EnqueueAsync(It.IsAny<string>()));
         }
 
         [Test]

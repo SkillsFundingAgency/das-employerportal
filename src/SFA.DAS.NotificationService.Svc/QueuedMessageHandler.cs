@@ -38,7 +38,6 @@ namespace SFA.DAS.NotificationService.Worker
 
             if (message.Content != null)
             {
-
                 Logger.Info($"Received message {message.Content.MessageId}");
 
                 try

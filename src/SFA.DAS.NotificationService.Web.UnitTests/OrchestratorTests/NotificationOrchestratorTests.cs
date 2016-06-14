@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MediatR;
-using NSubstitute;
+using Moq;
 using NUnit.Framework;
 using SFA.DAS.NotificationService.Api.Models;
 using SFA.DAS.NotificationService.Api.Orchestrators;
@@ -13,20 +13,20 @@ namespace SFA.DAS.NotificationService.Api.UnitTests.OrchestratorTests
     [TestFixture]
     public class NotificationOrchestratorTests
     {
-        private IMediator _mediator;
+        private Mock<IMediator> _mediator;
 
         [SetUp]
         public void Setup()
         {
-            _mediator = Substitute.For<IMediator>();
+            _mediator = new Mock<IMediator>();
         }
 
         [Test]
-        public async Task ReturnsExpectedResponseCode()
+        public async Task ReturnsExpectedResponseCodeIfEmailSent()
         {
             var emailViewModel = BuildEmailViewModel();
 
-            var orchestrator = new NotificationOrchestrator(_mediator);
+            var orchestrator = new NotificationOrchestrator(_mediator.Object);
 
             var response = await orchestrator.SendEmail(emailViewModel);
 
@@ -38,17 +38,14 @@ namespace SFA.DAS.NotificationService.Api.UnitTests.OrchestratorTests
         {
             var emailViewModel = BuildEmailViewModel();
 
-            var orchestrator = new NotificationOrchestrator(_mediator);
+            var orchestrator = new NotificationOrchestrator(_mediator.Object);
 
             await orchestrator.SendEmail(emailViewModel);
 
-            Received.InOrder(async () =>
-            {
-                await _mediator.SendAsync(Arg.Is<SendEmailCommand>(x => x.UserId == emailViewModel.UserId
+            _mediator.Verify(med => med.SendAsync(It.Is<SendEmailCommand>(x => x.UserId == emailViewModel.UserId
                     && x.MessageType == emailViewModel.MessageType && x.RecipientsAddress == emailViewModel.RecipientsAddress
                     && x.ReplyToAddress == emailViewModel.ReplyToAddress && x.ForceFormat == emailViewModel.ForceFormat
-                    && x.Data == emailViewModel.Data));
-            });
+                    && x.Data == emailViewModel.Data)));
         }
 
         [Test]
@@ -58,7 +55,7 @@ namespace SFA.DAS.NotificationService.Api.UnitTests.OrchestratorTests
 
             emailViewModel.UserId = string.Empty;
 
-            var orchestrator = new NotificationOrchestrator(_mediator);
+            var orchestrator = new NotificationOrchestrator(_mediator.Object);
 
             var response = await orchestrator.SendEmail(emailViewModel);
 
