@@ -74,12 +74,12 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="FakeGuidProvider.cs" />
-    <Compile Include="FakeTimeProvider.cs" />
+    <Compile Include="TestHelpers\FakeGuidProvider.cs" />
+    <Compile Include="TestHelpers\FakeTimeProvider.cs" />
     <Compile Include="QueryTests\GetMessageQueryHandlerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CommandTests\SendEmailCommandHandlerTests.cs" />
-    <Compile Include="SendEmailCommandValidatorTests.cs" />
+    <Compile Include="ValidatorTests\SendEmailCommandValidatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

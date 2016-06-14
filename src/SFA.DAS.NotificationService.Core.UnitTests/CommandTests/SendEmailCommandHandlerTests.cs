@@ -9,6 +9,7 @@ using SFA.DAS.NotificationService.Application.DataEntities;
 using SFA.DAS.NotificationService.Application.Exceptions;
 using SFA.DAS.NotificationService.Application.Interfaces;
 using SFA.DAS.NotificationService.Application.Services;
+using SFA.DAS.NotificationService.Application.UnitTests.TestHelpers;
 using SFA.DAS.TimeProvider;
 
 namespace SFA.DAS.NotificationService.Application.UnitTests.CommandTests

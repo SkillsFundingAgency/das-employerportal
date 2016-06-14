@@ -3,7 +3,7 @@ using NUnit.Framework;
 using SFA.DAS.NotificationService.Application.Commands.SendEmail;
 using SFA.DAS.NotificationService.Application.Services;
 
-namespace SFA.DAS.NotificationService.Application.UnitTests
+namespace SFA.DAS.NotificationService.Application.UnitTests.ValidatorTests
 {
     [TestFixture]
     public class SendEmailCommandValidatorTests
@@ -14,6 +14,17 @@ namespace SFA.DAS.NotificationService.Application.UnitTests
         public void Setup()
         {
             _validator = new SendEmailCommandValidator();
+        }
+
+        [Test]
+        public void ThenSuceedsWithValidCommand()
+        {
+            var cmd = BuildValidCommand();
+
+            var result = _validator.Validate(cmd);
+
+            Assert.That(result.IsValid, Is.True);
+            Assert.That(result.Errors.Count, Is.EqualTo(0));
         }
 
         [Test]
@@ -57,6 +68,34 @@ namespace SFA.DAS.NotificationService.Application.UnitTests
             Assert.That(result.IsValid, Is.False);
             Assert.That(result.Errors.Count, Is.EqualTo(1));
             Assert.That(result.Errors[0].PropertyName, Is.EqualTo("UserId"));
+        }
+
+        [Test]
+        public void ThenFailsWhenRecipientEmailIsEmpty()
+        {
+            var cmd = BuildValidCommand();
+
+            cmd.RecipientsAddress = "";
+
+            var result = _validator.Validate(cmd);
+
+            Assert.That(result.IsValid, Is.False);
+            Assert.That(result.Errors.Count, Is.EqualTo(1));
+            Assert.That(result.Errors[0].PropertyName, Is.EqualTo("RecipientsAddress"));
+        }
+
+        [Test]
+        public void ThenFailsWhenReplyToEmailIsEmpty()
+        {
+            var cmd = BuildValidCommand();
+
+            cmd.ReplyToAddress = "";
+
+            var result = _validator.Validate(cmd);
+
+            Assert.That(result.IsValid, Is.False);
+            Assert.That(result.Errors.Count, Is.EqualTo(1));
+            Assert.That(result.Errors[0].PropertyName, Is.EqualTo("ReplyToAddress"));
         }
 
         private static SendEmailCommand BuildValidCommand()

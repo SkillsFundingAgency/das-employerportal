@@ -89,7 +89,11 @@ namespace SFA.DAS.NotificationService.Api.DependencyResolution {
             }
 
             For<MessagingService>().Use<MessagingService>();
-            For<IMessageNotificationRepository>().Use<AzureEmailNotificationRepository>().Ctor<string>().Is(CloudConfigurationManager.GetSetting("StorageConnectionString"));
+
+            var storageConnectionString = CloudConfigurationManager.GetSetting("StorageConnectionString") ??
+                              "UseDevelopmentStorage=true";
+
+            For<IMessageNotificationRepository>().Use<AzureEmailNotificationRepository>().Ctor<string>().Is(storageConnectionString);
             For<INotificationOrchestrator>().Use<NotificationOrchestrator>();
             For<IMediator>().Use<Mediator>();
         }

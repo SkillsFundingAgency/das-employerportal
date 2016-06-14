@@ -1,7 +1,7 @@
 ﻿using System;
 using SFA.DAS.NotificationService.Application.Services;
 
-namespace SFA.DAS.NotificationService.Application.UnitTests
+namespace SFA.DAS.NotificationService.Application.UnitTests.TestHelpers
 {
     public class FakeGuidProvider : GuidProvider
     {

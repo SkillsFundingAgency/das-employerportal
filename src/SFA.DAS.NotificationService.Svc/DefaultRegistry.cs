@@ -59,7 +59,10 @@ namespace SFA.DAS.NotificationService.Worker
                 new ConfigurationOptions(ServiceName, environment, "1.0"));
             For<IConfigurationService>().Use(configurationService);
 
-            For<IMessageNotificationRepository>().Use<AzureEmailNotificationRepository>().Ctor<string>().Is(CloudConfigurationManager.GetSetting("StorageConnectionString"));
+            var storageConnectionString = CloudConfigurationManager.GetSetting("StorageConnectionString") ??
+                                          "UseDevelopmentStorage=true";
+
+            For<IMessageNotificationRepository>().Use<AzureEmailNotificationRepository>().Ctor<string>().Is(storageConnectionString);
 
             if (environment == DevEnv)
             {
