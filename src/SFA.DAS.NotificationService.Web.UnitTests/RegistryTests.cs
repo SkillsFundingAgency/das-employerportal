@@ -11,13 +11,22 @@ namespace SFA.DAS.NotificationService.Api.UnitTests
     public class RegistryTests
     {
         private DefaultRegistry _registry;
+        private string _currentVariable;
 
         [SetUp]
         public void Setup()
         {
+            _currentVariable = Environment.GetEnvironmentVariable("DASENV");
+
             Environment.SetEnvironmentVariable("DASENV", "LOCAL");
 
             _registry = new DefaultRegistry();
+        }
+
+        [TearDown]
+        public void Teardown()
+        {
+            Environment.SetEnvironmentVariable("DASENV", _currentVariable);
         }
 
         [Test]

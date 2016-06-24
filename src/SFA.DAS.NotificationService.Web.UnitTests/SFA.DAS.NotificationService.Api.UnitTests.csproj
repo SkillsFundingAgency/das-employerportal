@@ -102,6 +102,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="ControllerTests\EmailControllerTests.cs" />
     <Compile Include="OrchestratorTests\NotificationOrchestratorTests.cs" />
     <Compile Include="RegistryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
