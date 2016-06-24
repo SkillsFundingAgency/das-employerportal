@@ -23,34 +23,20 @@ namespace SFA.DAS.NotificationService.Api.UnitTests.ControllerTests
             _controller = new EmailController(_orchestrator.Object);
         }
 
-        [Test]
-        public async Task ReturnBadRequestOnValidationFailure()
+        [TestCase(NotificationOrchestratorCodes.Post.Success, HttpStatusCode.OK)]
+        [TestCase(NotificationOrchestratorCodes.Post.ValidationFailure, HttpStatusCode.BadRequest)]
+        public async Task ReturnExpectedStatusCodeForEmailPost(string responseCode, HttpStatusCode statusCode)
         {
             var response = new OrchestratorResponse
             {
-                Code = NotificationOrchestratorCodes.Post.ValidationFailure
+                Code = responseCode
             };
 
             _orchestrator.Setup(x => x.SendEmail(It.IsAny<EmailViewModel>())).ReturnsAsync(response);
 
             var httpResponse = await _controller.Post(new EmailViewModel());
 
-            Assert.That(httpResponse.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
-        }
-
-        [Test]
-        public async Task ReturnSuccessOKOnMessageSent()
-        {
-            var response = new OrchestratorResponse
-            {
-                Code = NotificationOrchestratorCodes.Post.Success
-            };
-
-            _orchestrator.Setup(x => x.SendEmail(It.IsAny<EmailViewModel>())).ReturnsAsync(response);
-
-            var httpResponse = await _controller.Post(new EmailViewModel());
-
-            Assert.That(httpResponse.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            Assert.That(httpResponse.StatusCode, Is.EqualTo(statusCode));
         }
     }
 }
