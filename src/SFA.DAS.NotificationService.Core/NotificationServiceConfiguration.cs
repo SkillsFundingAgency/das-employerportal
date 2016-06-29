@@ -1,6 +1,6 @@
 ﻿namespace SFA.DAS.NotificationService.Application
 {
-    //{"SmtpServer":{"ServerName":"localhost","UserName":"","Password":"","Port":"25"},"ServiceBusConfiguration":{"ConnectionString":"","QueueName":""},"MessageStorage":{"TableName":"SentEmailMessages"}}
+    //{"SmtpServer":{"ServerName":"localhost","UserName":"","Password":"","Port":"25"},"ServiceBusConfiguration":{"ConnectionString":"","QueueName":""},"MessageStorage":{"TableName":"SentEmailMessages"},"NotifyEmail":{"ApiBaseUrl":"https://www.notifications.service.gov.uk"}}
     //SendGrid -> <network host="smtp.sendgrid.net" password="password" userName="username" port="587" />
     public class NotificationServiceConfiguration
     {

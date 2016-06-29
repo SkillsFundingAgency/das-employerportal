@@ -22,9 +22,9 @@ namespace SFA.DAS.NotificationService.Infrastructure
             _configurationService = configurationService;
         }
 
-        public void Send(EmailMessage message)
+        public async Task SendAsync(EmailMessage message)
         {
-            var config = _configurationService.Get<NotificationServiceConfiguration>();
+            var config = await _configurationService.GetAsync<NotificationServiceConfiguration>();
 
             using (var client = new SmtpClient())
             {
@@ -44,13 +44,8 @@ namespace SFA.DAS.NotificationService.Infrastructure
                     Body = JsonConvert.SerializeObject(message)
                 };
 
-                client.Send(mail);
+                await client.SendMailAsync(mail);
             }
-        }
-
-        public Task SendAsync(EmailMessage message)
-        {
-            throw new NotImplementedException();
         }
 
         private int GetPortNumber(string candidate)
