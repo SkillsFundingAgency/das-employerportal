@@ -7,6 +7,7 @@
         public SmtpConfiguration SmtpServer { get; set; }
         public AzureServiceBusMessageSubSystemConfiguration ServiceBusConfiguration { get; set; }
         public MessageStorageConfiguration MessageStorage { get; set; }
+        public NotifyEmailServiceConfiguration NotifyEmail { get; set; }
     }
 
     public class SmtpConfiguration
@@ -27,4 +28,10 @@
     {
         public string TableName { get; set; }
     }
+
+    public class NotifyEmailServiceConfiguration
+    {
+        public string ApiBaseUrl { get; set; }
+    }
+
 }

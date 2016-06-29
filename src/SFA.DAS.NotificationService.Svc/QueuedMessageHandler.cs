@@ -55,9 +55,10 @@ namespace SFA.DAS.NotificationService.Worker
                         {
                             var emailContent = JsonConvert.DeserializeObject<EmailContent>(savedMessage.Content.Data);
 
-                            _emailService.Send(new EmailMessage
+                            await _emailService.SendAsync(new EmailMessage
                             {
                                 MessageType = savedMessage.MessageType,
+                                TemplateId = savedMessage.Content.TemplateId,
                                 UserId = savedMessage.Content.UserId,
                                 RecipientsAddress = emailContent.RecipientsAddress,
                                 ReplyToAddress = emailContent.ReplyToAddress,

@@ -80,6 +80,7 @@
     <Compile Include="AzureEmailNotificationRepository.cs" />
     <Compile Include="EmailMessageEntity.cs" />
     <Compile Include="LocalEmailService.cs" />
+    <Compile Include="NotifyEmailService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SendGridSmtpEmailService.cs" />
   </ItemGroup>

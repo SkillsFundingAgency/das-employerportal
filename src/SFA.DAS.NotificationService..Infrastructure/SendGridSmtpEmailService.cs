@@ -1,5 +1,6 @@
 using System;
 using System.Net.Mail;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SFA.DAS.Configuration;
 using SFA.DAS.NotificationService.Application;
@@ -19,7 +20,7 @@ namespace SFA.DAS.NotificationService.Infrastructure
             _configurationService = configurationService;
         }
 
-        public void Send(EmailMessage message)
+        public async Task SendAsync(EmailMessage message)
         {
             var config = _configurationService.Get<NotificationServiceConfiguration>();
 
@@ -40,7 +41,7 @@ namespace SFA.DAS.NotificationService.Infrastructure
                     Subject = message.MessageType,
                     Body = JsonConvert.SerializeObject(message)
                 };
-                client.Send(mail);
+                await client.SendMailAsync(mail);
             }
         }
 

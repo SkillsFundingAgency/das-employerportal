@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SFA.DAS.Configuration;
 using SFA.DAS.NotificationService.Application;
@@ -45,6 +46,11 @@ namespace SFA.DAS.NotificationService.Infrastructure
 
                 client.Send(mail);
             }
+        }
+
+        public Task SendAsync(EmailMessage message)
+        {
+            throw new NotImplementedException();
         }
 
         private int GetPortNumber(string candidate)

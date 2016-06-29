@@ -6,6 +6,7 @@ namespace SFA.DAS.NotificationService.Application.Messages
     {
         public string UserId { get; set; }
         public string MessageType { get; set; }
+        public string TemplateId { get; set; }
         public string RecipientsAddress { get; set; }
         public string ReplyToAddress { get; set; }
         public Dictionary<string, string> Data { get; set; }
