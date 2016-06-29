@@ -109,12 +109,14 @@
     <Compile Include="Exceptions\CustomValidationException.cs" />
     <Compile Include="Interfaces\IEmailService.cs" />
     <Compile Include="Interfaces\IMessageNotificationRepository.cs" />
+    <Compile Include="Interfaces\ISmsService.cs" />
     <Compile Include="Messages\EmailContent.cs" />
     <Compile Include="Messages\EmailMessage.cs" />
     <Compile Include="Messages\MessageFormat.cs" />
     <Compile Include="Messages\MessageStatus.cs" />
     <Compile Include="Messages\NotificationServiceMessageType.cs" />
     <Compile Include="Messages\QueueMessage.cs" />
+    <Compile Include="Messages\SmsMessage.cs" />
     <Compile Include="NotificationServiceConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\GetMessage\GetMessageQueryHandler.cs" />

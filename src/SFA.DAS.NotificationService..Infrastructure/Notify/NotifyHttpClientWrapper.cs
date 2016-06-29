@@ -1,38 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SFA.DAS.Configuration;
 using SFA.DAS.NotificationService.Application;
-using SFA.DAS.NotificationService.Application.Interfaces;
-using SFA.DAS.NotificationService.Application.Messages;
 
-namespace SFA.DAS.NotificationService.Infrastructure
+namespace SFA.DAS.NotificationService.Infrastructure.Notify
 {
-    public class NotifyEmailService : IEmailService
+    public interface INotifyHttpClientWrapper
+    {
+        Task SendMessage(NotifyMessage content);
+    }
+
+    public class NotifyHttpClientWrapper : INotifyHttpClientWrapper
     {
         private readonly IConfigurationService _configurationService;
 
-        public NotifyEmailService(IConfigurationService configurationService)
+        public NotifyHttpClientWrapper(IConfigurationService configurationService)
         {
             if (configurationService == null)
                 throw new ArgumentNullException(nameof(configurationService));
             _configurationService = configurationService;
-        }
-
-        public async Task SendAsync(EmailMessage message)
-        {
-            var notifyMessage = new NotifyMessage
-            {
-                To = message.RecipientsAddress,
-                Template = message.TemplateId,
-                Personalisation = message.Data.ToDictionary(item => item.Key.ToLower(), item => item.Value)
-            };
-
-            await SendMessage(notifyMessage);
         }
 
         public async Task SendMessage(NotifyMessage content)
@@ -57,15 +46,4 @@ namespace SFA.DAS.NotificationService.Infrastructure
             };
         }
     }
-    
-    public class NotifyMessage
-    {
-        [JsonProperty(PropertyName = "to")]
-        public string To { get; set; }
-        [JsonProperty(PropertyName = "template")]
-        public string Template { get; set; }
-        [JsonProperty(PropertyName = "personalisation")]
-        public Dictionary<string, string> Personalisation { get; set; }
-    }
-
 }
