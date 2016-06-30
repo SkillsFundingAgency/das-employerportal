@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SFA.DAS.Configuration;
 using SFA.DAS.NotificationService.Application;
+using SFA.DAS.NotificationService.Application.Services;
 
 namespace SFA.DAS.NotificationService.Infrastructure.Notify
 {
@@ -26,23 +28,32 @@ namespace SFA.DAS.NotificationService.Infrastructure.Notify
 
         public async Task SendMessage(NotifyMessage content)
         {
-            using (var httpClient = await CreateHttpClient())
+            var configuration = await _configurationService.GetAsync<NotificationServiceConfiguration>();
+
+            content.Template = configuration.NotifyEmail.EmailTemplateId;
+
+            using (var httpClient = CreateHttpClient(configuration.NotifyEmail.ApiBaseUrl))
             {
+                var token = JwtTokenCreation.CreateToken(configuration.NotifyEmail.ServiceId, configuration.NotifyEmail.ApiKey);
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
                 var serializeObject = JsonConvert.SerializeObject(content);
+                var stringContent = new StringContent(serializeObject, Encoding.UTF8, "application/json");
+
                 var response = await httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Post, "/notifications/email")
                 {
-                    Content = new StringContent(serializeObject, Encoding.UTF8, "application/json")
+                    Content = stringContent
                 });
+                
                 response.EnsureSuccessStatusCode();
             }
         }
 
-        private async Task<HttpClient> CreateHttpClient()
+        private HttpClient CreateHttpClient(string baseUrl)
         {
-            var configuration = await _configurationService.GetAsync<NotificationServiceConfiguration>();
             return new HttpClient
             {
-                BaseAddress = new Uri(configuration.NotifyEmail.ApiBaseUrl)
+                BaseAddress = new Uri(baseUrl)
             };
         }
     }

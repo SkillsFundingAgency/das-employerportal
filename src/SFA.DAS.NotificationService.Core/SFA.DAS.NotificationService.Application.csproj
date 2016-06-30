@@ -35,6 +35,10 @@
       <HintPath>..\packages\FluentValidation.6.2.1.0\lib\Net45\FluentValidation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="JWT, Version=1.3.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\JWT.1.3.4\lib\3.5\JWT.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MediatR, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MediatR.2.0.2\lib\net45\MediatR.dll</HintPath>
       <Private>True</Private>
@@ -103,10 +107,12 @@
     <Compile Include="Commands\SendEmail\SendEmailCommand.cs" />
     <Compile Include="Commands\SendEmail\SendEmailCommandHandler.cs" />
     <Compile Include="Commands\SendEmail\SendEmailCommandValidator.cs" />
+    <Compile Include="DataEntities\GovNotifyPayload.cs" />
     <Compile Include="DataEntities\MessageContent.cs" />
     <Compile Include="DataEntities\MessageData.cs" />
     <Compile Include="Exceptions\CustomException.cs" />
     <Compile Include="Exceptions\CustomValidationException.cs" />
+    <Compile Include="Extensions\UnixDate.cs" />
     <Compile Include="Interfaces\IEmailService.cs" />
     <Compile Include="Interfaces\IMessageNotificationRepository.cs" />
     <Compile Include="Interfaces\ISmsService.cs" />
@@ -124,6 +130,7 @@
     <Compile Include="Queries\GetMessage\GetMessageQueryResponse.cs" />
     <Compile Include="Services\DefaultGuidProvider.cs" />
     <Compile Include="Services\GuidProvider.cs" />
+    <Compile Include="Services\JwtTokenCreation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -32,6 +32,9 @@
     public class NotifyEmailServiceConfiguration
     {
         public string ApiBaseUrl { get; set; }
+        public string ServiceId { get; set; }
+        public string ApiKey { get; set; }
+        public string EmailTemplateId { get; set; }
     }
 
 }

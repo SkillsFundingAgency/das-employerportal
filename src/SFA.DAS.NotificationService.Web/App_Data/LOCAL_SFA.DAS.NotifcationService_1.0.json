@@ -8,5 +8,11 @@
   "ServiceBusConfiguration": {
     "ConnectionString": "",
     "QueueName": ""
+  },
+  "NotifyEmail": {
+    "ApiBaseUrl": "https://api.notifications.service.gov.uk",
+    "ServiceId": "",
+    "ApiKey": ""
   }
+
 }

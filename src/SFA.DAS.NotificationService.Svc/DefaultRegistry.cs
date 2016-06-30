@@ -12,6 +12,7 @@ using SFA.DAS.Messaging.FileSystem;
 using SFA.DAS.NotificationService.Application;
 using SFA.DAS.NotificationService.Application.Interfaces;
 using SFA.DAS.NotificationService.Infrastructure;
+using SFA.DAS.NotificationService.Infrastructure.Notify;
 using StructureMap.Configuration.DSL;
 
 namespace SFA.DAS.NotificationService.Worker
@@ -42,6 +43,7 @@ namespace SFA.DAS.NotificationService.Worker
                 });
             For<SingleInstanceFactory>().Use<SingleInstanceFactory>(ctx => t => ctx.GetInstance(t));
             For<MultiInstanceFactory>().Use<MultiInstanceFactory>(ctx => t => ctx.GetAllInstances(t));
+            For<INotifyHttpClientWrapper>().Use<NotifyHttpClientWrapper>();
 
             IConfigurationRepository configurationRepository;
 
