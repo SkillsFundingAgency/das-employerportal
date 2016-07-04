@@ -7,7 +7,6 @@ namespace SFA.DAS.NotificationService.Api
         protected void Application_Start()
         {
             LoggingConfig.ConfigureLogging();
-            GlobalConfiguration.Configure(WebApiConfig.Register);
         }
     }
 }
