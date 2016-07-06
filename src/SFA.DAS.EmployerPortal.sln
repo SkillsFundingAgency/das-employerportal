@@ -32,6 +32,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.EmployerPortal.Infr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.NotificationService.Infrastructure", "SFA.DAS.NotificationService..Infrastructure\SFA.DAS.NotificationService.Infrastructure.csproj", "{23CF7C43-D9CA-4446-AA6F-E0E5D792A200}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.NotificationService.Infrastructure.UnitTests", "SFA.DAS.NotificationService.Infrastructure.UnitTests\SFA.DAS.NotificationService.Infrastructure.UnitTests.csproj", "{8034DEBE-79F3-4D1D-81DB-6D78556B706E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -82,6 +84,10 @@ Global
 		{23CF7C43-D9CA-4446-AA6F-E0E5D792A200}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23CF7C43-D9CA-4446-AA6F-E0E5D792A200}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23CF7C43-D9CA-4446-AA6F-E0E5D792A200}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8034DEBE-79F3-4D1D-81DB-6D78556B706E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8034DEBE-79F3-4D1D-81DB-6D78556B706E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8034DEBE-79F3-4D1D-81DB-6D78556B706E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8034DEBE-79F3-4D1D-81DB-6D78556B706E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,5 +97,6 @@ Global
 		{AF5196F8-BFE6-4B42-829E-37E28FD22B22} = {4EF1A27F-C31A-4D20-8940-9CDB983ECD32}
 		{147B79F9-A60D-4850-BB95-732E2F6F295D} = {4EF1A27F-C31A-4D20-8940-9CDB983ECD32}
 		{FC049A0B-5CE4-4BA1-8A75-D766B75C7FDE} = {4EF1A27F-C31A-4D20-8940-9CDB983ECD32}
+		{8034DEBE-79F3-4D1D-81DB-6D78556B706E} = {4EF1A27F-C31A-4D20-8940-9CDB983ECD32}
 	EndGlobalSection
 EndGlobal

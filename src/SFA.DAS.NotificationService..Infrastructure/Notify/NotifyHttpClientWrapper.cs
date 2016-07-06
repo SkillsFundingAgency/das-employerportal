@@ -12,7 +12,7 @@ namespace SFA.DAS.NotificationService.Infrastructure.Notify
 {
     public interface INotifyHttpClientWrapper
     {
-        Task SendMessage(NotifyMessage content);
+        Task<HttpResponseMessage> SendMessage(NotifyMessage content);
     }
 
     public class NotifyHttpClientWrapper : INotifyHttpClientWrapper
@@ -26,10 +26,11 @@ namespace SFA.DAS.NotificationService.Infrastructure.Notify
             _configurationService = configurationService;
         }
 
-        public async Task SendMessage(NotifyMessage content)
+        public async Task<HttpResponseMessage> SendMessage(NotifyMessage content)
         {
             var configuration = await _configurationService.GetAsync<NotificationServiceConfiguration>();
 
+            //TODO: Remove this line when we have proper email templates
             content.Template = configuration.NotifyEmail.EmailTemplateId;
 
             using (var httpClient = CreateHttpClient(configuration.NotifyEmail.ApiBaseUrl))
@@ -40,12 +41,10 @@ namespace SFA.DAS.NotificationService.Infrastructure.Notify
                 var serializeObject = JsonConvert.SerializeObject(content);
                 var stringContent = new StringContent(serializeObject, Encoding.UTF8, "application/json");
 
-                var response = await httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Post, "/notifications/email")
+                return await httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Post, "/notifications/email")
                 {
                     Content = stringContent
                 });
-                
-                response.EnsureSuccessStatusCode();
             }
         }
 

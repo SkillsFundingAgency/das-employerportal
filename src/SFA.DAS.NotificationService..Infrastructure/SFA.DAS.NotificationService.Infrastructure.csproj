@@ -67,6 +67,10 @@
       <HintPath>..\packages\NLog.4.3.4\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Polly, Version=4.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Polly.4.3.0\lib\net45\Polly.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="SFA.DAS.Configuration, Version=1.0.0.4757, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.Configuration.1.0.0.4757\lib\net45\SFA.DAS.Configuration.dll</HintPath>
       <Private>True</Private>
@@ -91,6 +95,7 @@
     <Compile Include="Notify\NotifyHttpClientWrapper.cs" />
     <Compile Include="Notify\NotifyEmailService.cs" />
     <Compile Include="Notify\NotifyMessage.cs" />
+    <Compile Include="Notify\NotifyResponse.cs" />
     <Compile Include="Notify\NotifySmsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SendGridSmtpEmailService.cs" />
