@@ -8,6 +8,8 @@
         public AzureServiceBusMessageSubSystemConfiguration ServiceBusConfiguration { get; set; }
         public MessageStorageConfiguration MessageStorage { get; set; }
         public NotifyEmailServiceConfiguration NotifyEmail { get; set; }
+
+        public PortalJwtTokenConfiguration PortalJwtToken { get; set; }
     }
 
     public class SmtpConfiguration
@@ -35,6 +37,15 @@
         public string ServiceId { get; set; }
         public string ApiKey { get; set; }
         public string EmailTemplateId { get; set; }
+    }
+
+    public class PortalJwtTokenConfiguration
+    {
+        public string AudienceId { get; set; }
+        public string Secret { get; set; }
+        public string Issuer { get; set; }
+        public bool AllowInsecureHttp { get; set; }
+        public int AccessTokenExpiryTimeInMinutes { get; set; }
     }
 
 }

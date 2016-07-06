@@ -112,6 +112,7 @@
     <Compile Include="DataEntities\MessageData.cs" />
     <Compile Include="Exceptions\CustomException.cs" />
     <Compile Include="Exceptions\CustomValidationException.cs" />
+    <Compile Include="Extensions\AggregateExceptionExtensions.cs" />
     <Compile Include="Extensions\UnixDate.cs" />
     <Compile Include="Interfaces\IEmailService.cs" />
     <Compile Include="Interfaces\IMessageNotificationRepository.cs" />

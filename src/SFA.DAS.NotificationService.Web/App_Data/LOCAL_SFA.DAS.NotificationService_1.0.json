@@ -13,6 +13,13 @@
     "ApiBaseUrl": "https://api.notifications.service.gov.uk",
     "ServiceId": "",
     "ApiKey": ""
+  },
+  "PortalJwtToken": {
+    "AudienceId": "audience",
+    "Secret": "YWJjZGUxMjM0NTZhYmNkZTEyMzQ1NjQ1NjQ3OGFzZHE=",
+    "Issuer": "http://das-dev-employerportal",
+    "AllowInsecureHttp": "true",
+    "AccessTokenExpiryTimeInMinutes" : "5"
   }
 
 }
