@@ -37,14 +37,6 @@
     <ServiceConfiguration Include="ServiceConfiguration.Cloud.cscfg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SFA.DAS.EmployerPortal.Web\SFA.DAS.EmployerPortal.Web.csproj">
-      <Name>SFA.DAS.EmployerPortal.Web</Name>
-      <Project>{d5ecd144-ec50-496a-9f29-01d62410f3f2}</Project>
-      <Private>True</Private>
-      <RoleType>Web</RoleType>
-      <RoleName>SFA.DAS.EmployerPortal.Web</RoleName>
-      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
-    </ProjectReference>
     <ProjectReference Include="..\SFA.DAS.NotificationService.Svc\SFA.DAS.NotificationService.Worker.csproj">
       <Name>SFA.DAS.NotificationService.Worker</Name>
       <Project>{8ddea855-5b98-4d32-8a7c-c23c0814bdfc}</Project>

@@ -19,7 +19,11 @@
     "Secret": "YWJjZGUxMjM0NTZhYmNkZTEyMzQ1NjQ1NjQ3OGFzZHE=",
     "Issuer": "http://das-dev-employerportal",
     "AllowInsecureHttp": "true",
-    "AccessTokenExpiryTimeInMinutes" : "5"
+    "AccessTokenExpiryTimeInMinutes": "5"
+  },
+  "LevyDatabase": {
+    "ConnectionString": "data source=.;initial catalog=DAS_AML;integrated security=True;MultipleActiveResultSets=True;"
   }
+     
 
 }

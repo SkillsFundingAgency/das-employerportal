@@ -273,6 +273,7 @@
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="App_Start\StructuremapWebApi.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Core\InvalidOrchestratorCodeException.cs" />
     <Compile Include="Core\OrchestratorBase.cs" />
@@ -289,6 +290,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AccountRequest.cs" />
     <Compile Include="Models\EmailViewModel.cs" />
     <Compile Include="Orchestrators\INotificationOrchestrator.cs" />
     <Compile Include="Orchestrators\NotificationOrchestrator.cs" />
@@ -298,7 +300,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -318,6 +322,10 @@
     <ProjectReference Include="..\SFA.DAS.NotificationService.Core\SFA.DAS.NotificationService.Application.csproj">
       <Project>{a7d9a608-913c-496d-aced-4a6d7f2c2758}</Project>
       <Name>SFA.DAS.NotificationService.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.NotificationService.Domain\SFA.DAS.NotificationService.Domain.csproj">
+      <Project>{AC81FD52-7485-4BBF-9C0C-D6EED90F84A1}</Project>
+      <Name>SFA.DAS.NotificationService.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

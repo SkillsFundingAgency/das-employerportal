@@ -10,6 +10,8 @@
         public NotifyEmailServiceConfiguration NotifyEmail { get; set; }
 
         public PortalJwtTokenConfiguration PortalJwtToken { get; set; }
+
+        public LevyDatabaseConfiguration LevyDatabase { get; set; }
     }
 
     public class SmtpConfiguration
@@ -46,6 +48,11 @@
         public string Issuer { get; set; }
         public bool AllowInsecureHttp { get; set; }
         public int AccessTokenExpiryTimeInMinutes { get; set; }
+    }
+
+    public class LevyDatabaseConfiguration
+    {
+        public string ConnectionString { get; set; }
     }
 
 }

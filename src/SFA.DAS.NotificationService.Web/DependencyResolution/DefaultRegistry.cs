@@ -30,7 +30,9 @@ using SFA.DAS.Messaging.FileSystem;
 using SFA.DAS.NotificationService.Api.Orchestrators;
 using SFA.DAS.NotificationService.Application;
 using SFA.DAS.NotificationService.Application.Interfaces;
+using SFA.DAS.NotificationService.Domain.Repositories;
 using SFA.DAS.NotificationService.Infrastructure;
+using SFA.DAS.NotificationService.Infrastructure.Repositories;
 using StructureMap.Configuration.DSL;
 
 namespace SFA.DAS.NotificationService.Api.DependencyResolution {
@@ -95,6 +97,7 @@ namespace SFA.DAS.NotificationService.Api.DependencyResolution {
 
             For<IMessageNotificationRepository>().Use<AzureEmailNotificationRepository>().Ctor<string>().Is(storageConnectionString);
             For<INotificationOrchestrator>().Use<NotificationOrchestrator>();
+            For<IAccountRepository>().Use<AccountRepository>();
             For<IMediator>().Use<Mediator>();
         }
     }

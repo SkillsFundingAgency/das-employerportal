@@ -126,6 +126,9 @@
     <Compile Include="Messages\SmsMessage.cs" />
     <Compile Include="NotificationServiceConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\GetAccount\GetAccountHandler.cs" />
+    <Compile Include="Queries\GetAccount\GetAccountRequest.cs" />
+    <Compile Include="Queries\GetAccount\GetAccountResponse.cs" />
     <Compile Include="Queries\GetMessage\GetMessageQueryHandler.cs" />
     <Compile Include="Queries\GetMessage\GetMessageQueryRequest.cs" />
     <Compile Include="Queries\GetMessage\GetMessageQueryResponse.cs" />
@@ -137,7 +140,12 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\SFA.DAS.NotificationService.Domain\SFA.DAS.NotificationService.Domain.csproj">
+      <Project>{AC81FD52-7485-4BBF-9C0C-D6EED90F84A1}</Project>
+      <Name>SFA.DAS.NotificationService.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
