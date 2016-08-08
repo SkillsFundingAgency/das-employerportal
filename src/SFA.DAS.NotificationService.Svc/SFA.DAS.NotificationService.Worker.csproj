@@ -153,6 +153,10 @@
       <Project>{A7D9A608-913C-496D-ACED-4A6D7F2C2758}</Project>
       <Name>SFA.DAS.NotificationService.Application</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.NotificationService.Domain\SFA.DAS.NotificationService.Domain.csproj">
+      <Project>{AC81FD52-7485-4BBF-9C0C-D6EED90F84A1}</Project>
+      <Name>SFA.DAS.NotificationService.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

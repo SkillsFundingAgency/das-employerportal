@@ -3,9 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "SFA.DAS.EmployerPortal", "SFA.DAS.EmployerPortal\SFA.DAS.EmployerPortal.ccproj", "{94F05E8A-0954-4E45-B129-93F217FF1740}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4EF1A27F-C31A-4D20-8940-9CDB983ECD32}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CB588672-2383-4ADB-98B2-3283737DD4CA}"
+	ProjectSection(SolutionItems) = preProject
+		Build.fsx = Build.fsx
+		SharedAssemblyInfo.cs = SharedAssemblyInfo.cs
+	EndProjectSection
+EndProject
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "SFA.DAS.EmployerPortal", "SFA.DAS.EmployerPortal\SFA.DAS.EmployerPortal.ccproj", "{94F05E8A-0954-4E45-B129-93F217FF1740}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.NotificationService.Api", "SFA.DAS.NotificationService.Web\SFA.DAS.NotificationService.Api.csproj", "{E371279A-8BC6-4B5C-80E7-C3331A3CAD48}"
 EndProject
@@ -18,12 +24,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.NotificationService.Application.UnitTests", "SFA.DAS.NotificationService.Core.UnitTests\SFA.DAS.NotificationService.Application.UnitTests.csproj", "{147B79F9-A60D-4850-BB95-732E2F6F295D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.NotificationService.Worker.UnitTests", "SFA.DAS.NotificationService.Svc.UnitTests\SFA.DAS.NotificationService.Worker.UnitTests.csproj", "{FC049A0B-5CE4-4BA1-8A75-D766B75C7FDE}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CB588672-2383-4ADB-98B2-3283737DD4CA}"
-	ProjectSection(SolutionItems) = preProject
-		Build.fsx = Build.fsx
-		SharedAssemblyInfo.cs = SharedAssemblyInfo.cs
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.NotificationService.Infrastructure", "SFA.DAS.NotificationService..Infrastructure\SFA.DAS.NotificationService.Infrastructure.csproj", "{23CF7C43-D9CA-4446-AA6F-E0E5D792A200}"
 EndProject

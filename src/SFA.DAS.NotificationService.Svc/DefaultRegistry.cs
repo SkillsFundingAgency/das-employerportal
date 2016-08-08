@@ -11,8 +11,10 @@ using SFA.DAS.Messaging.AzureServiceBus;
 using SFA.DAS.Messaging.FileSystem;
 using SFA.DAS.NotificationService.Application;
 using SFA.DAS.NotificationService.Application.Interfaces;
+using SFA.DAS.NotificationService.Domain.Repositories;
 using SFA.DAS.NotificationService.Infrastructure;
 using SFA.DAS.NotificationService.Infrastructure.Notify;
+using SFA.DAS.NotificationService.Infrastructure.Repositories;
 using StructureMap.Configuration.DSL;
 
 namespace SFA.DAS.NotificationService.Worker
@@ -82,6 +84,7 @@ namespace SFA.DAS.NotificationService.Worker
             
             For<MessagingService>().Use<MessagingService>();
             For<QueuedMessageHandler>().Use<QueuedMessageHandler>();
+            For<IAccountRepository>().Use<AccountRepository>();
             For<IMediator>().Use<Mediator>();
         }
     }
