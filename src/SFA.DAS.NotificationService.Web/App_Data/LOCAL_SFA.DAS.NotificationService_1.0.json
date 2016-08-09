@@ -22,8 +22,6 @@
     "AccessTokenExpiryTimeInMinutes": "5"
   },
   "LevyDatabase": {
-    "ConnectionString": "data source=.;initial catalog=DAS_AML;integrated security=True;MultipleActiveResultSets=True;"
+    "ConnectionString": ""
   }
-     
-
 }
