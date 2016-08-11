@@ -1,29 +1,30 @@
 ﻿using System.Net;
 using FluentAssertions;
 using MediatR;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Newtonsoft.Json;
+using NUnit.Framework;
+using NUnit.Framework.Internal;
 using SFA.DAS.NotificationService.Api.Controllers;
 using SFA.DAS.NotificationService.Application.Queries.GetAccount;
 using SFA.DAS.NotificationService.Domain.Models;
 
 namespace SFA.DAS.NotificationService.Api.UnitTests.ControllerTests
 {
-    [TestClass]
+    [TestFixture()]
     public class AccountControllerTests
     {
         private AccountController _sut;
         private Mock<IMediator> _mediatorMock;
 
-        [TestInitialize]
+        [SetUp]
         public void Init()
         {
             _mediatorMock = new Mock<IMediator>();
             _sut = new AccountController(_mediatorMock.Object);
         }
 
-        [TestMethod]
+        [Test]
         public void ShouldGetAccount()
         {
             // Assign
@@ -49,7 +50,7 @@ namespace SFA.DAS.NotificationService.Api.UnitTests.ControllerTests
             result.Result.Content.ReadAsStringAsync().Result.Should().Be(expectedContent);
         }
 
-        [TestMethod]
+        [Test]
         public void ShouldReturnCannotFindAccount()
         {
             // Assign
@@ -63,7 +64,7 @@ namespace SFA.DAS.NotificationService.Api.UnitTests.ControllerTests
             result.Result.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
-        [TestMethod]
+        [Test]
         public void ShouldReturnBadRequestIfIdInvalid()
         {
             // Assign

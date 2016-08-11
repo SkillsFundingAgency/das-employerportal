@@ -1,8 +1,8 @@
 ﻿using System.Configuration;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using NUnit.Framework;
 using SFA.DAS.Configuration;
 using SFA.DAS.NotificationService.Application;
 using SFA.DAS.NotificationService.Domain.Models;
@@ -15,17 +15,17 @@ namespace SFA.DAS.NotificationService.Infrastructure.Test.Repositories
     /// all the methods of the repository. These test will later on be replaced by full scale intergration
     /// test that will test end to end. These tests are ignored by default.
     /// </summary>
-    [TestClass]
-    [Ignore]
+    [TestFixture]
+    [Ignore("This test is mainly to test the repository code locally as we currently don't have a full integration test yet")]
     public class AccountRepositoryTest
     {
         private Account _account;
         private AccountRepository _repository;
         private NotificationServiceConfiguration _configuration;
         private Mock<IConfigurationService> _configurationServiceMock;
-        
 
-        [TestInitialize]
+
+        [SetUp]
         public void Init()
         {
             _configuration = new NotificationServiceConfiguration
@@ -35,7 +35,7 @@ namespace SFA.DAS.NotificationService.Infrastructure.Test.Repositories
                     ConnectionString = ConfigurationManager.ConnectionStrings["DAS_AML"].ConnectionString
                 }
             };
-            
+
             _configurationServiceMock = new Mock<IConfigurationService>();
             _configurationServiceMock.Setup(x => x.GetAsync<NotificationServiceConfiguration>()).ReturnsAsync(_configuration);
 
@@ -48,7 +48,7 @@ namespace SFA.DAS.NotificationService.Infrastructure.Test.Repositories
             _repository = new AccountRepository(_configurationServiceMock.Object);
         }
 
-        [TestMethod]
+        [Test]
         public async Task ShouldBeAbleToCreateAndGetAndDeleteAnAccount()
         {
             // Save the account

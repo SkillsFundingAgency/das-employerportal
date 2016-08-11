@@ -1,27 +1,27 @@
 ﻿using System;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using NUnit.Framework;
 using SFA.DAS.NotificationService.Application.Queries.GetAccount;
 using SFA.DAS.NotificationService.Domain.Models;
 using SFA.DAS.NotificationService.Domain.Repositories;
 
 namespace SFA.DAS.NotificationService.Application.UnitTests.QueryTests
 {
-    [TestClass]
+    [TestFixture]
     public class GetAccountHandlerTest
     {
         private GetAccountHandler _sut;
         private Mock<IAccountRepository> _accountRepositoryMock;
 
-        [TestInitialize]
+        [SetUp]
         public void Init()
         {
             _accountRepositoryMock = new Mock<IAccountRepository>();
             _sut = new GetAccountHandler(_accountRepositoryMock.Object);
         }
 
-        [TestMethod]
+        [Test]
         public void ShouldGetAccount()
         {
             // Assign
@@ -42,7 +42,7 @@ namespace SFA.DAS.NotificationService.Application.UnitTests.QueryTests
             _accountRepositoryMock.Verify(x => x.Get(account.Id), Times.Once);
         }
 
-        [TestMethod]
+        [Test]
         public void ShouldReturnNullIfCannotGetAccount()
         {
             // Assign
@@ -58,7 +58,7 @@ namespace SFA.DAS.NotificationService.Application.UnitTests.QueryTests
             _accountRepositoryMock.Verify(x => x.Get(It.IsAny<int>()), Times.Once);
         }
 
-        [TestMethod]
+        [Test]
         public void ShouldThrowExceptionIfRequestIdIsInvalid()
         {
             // Assign
@@ -70,7 +70,7 @@ namespace SFA.DAS.NotificationService.Application.UnitTests.QueryTests
             act.ShouldThrow<ArgumentException>();
         }
 
-        [TestMethod]
+        [Test]
         public void ShouldNotGetAccountIfRequestIsNull()
         {
             // Assign

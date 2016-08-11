@@ -29,7 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.NotificationService
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.NotificationService.Domain", "SFA.DAS.NotificationService.Domain\SFA.DAS.NotificationService.Domain.csproj", "{AC81FD52-7485-4BBF-9C0C-D6EED90F84A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.NotificationService.Infrastructure.Test", "SFA.DAS.NotificationService.Infrastructure.Test\SFA.DAS.NotificationService.Infrastructure.Test.csproj", "{A61C0FC6-1227-4154-98E1-2D4B6F93A9B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.NotificationService.Infrastructure.Test", "SFA.DAS.NotificationService.Infrastructure.Test\SFA.DAS.NotificationService.Infrastructure.Test.csproj", "{735D5ADC-94F2-4931-A131-E4052663D57D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,10 +73,10 @@ Global
 		{AC81FD52-7485-4BBF-9C0C-D6EED90F84A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC81FD52-7485-4BBF-9C0C-D6EED90F84A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC81FD52-7485-4BBF-9C0C-D6EED90F84A1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A61C0FC6-1227-4154-98E1-2D4B6F93A9B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A61C0FC6-1227-4154-98E1-2D4B6F93A9B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A61C0FC6-1227-4154-98E1-2D4B6F93A9B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A61C0FC6-1227-4154-98E1-2D4B6F93A9B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{735D5ADC-94F2-4931-A131-E4052663D57D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{735D5ADC-94F2-4931-A131-E4052663D57D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{735D5ADC-94F2-4931-A131-E4052663D57D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{735D5ADC-94F2-4931-A131-E4052663D57D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,6 +85,6 @@ Global
 		{AF5196F8-BFE6-4B42-829E-37E28FD22B22} = {4EF1A27F-C31A-4D20-8940-9CDB983ECD32}
 		{147B79F9-A60D-4850-BB95-732E2F6F295D} = {4EF1A27F-C31A-4D20-8940-9CDB983ECD32}
 		{FC049A0B-5CE4-4BA1-8A75-D766B75C7FDE} = {4EF1A27F-C31A-4D20-8940-9CDB983ECD32}
-		{A61C0FC6-1227-4154-98E1-2D4B6F93A9B9} = {4EF1A27F-C31A-4D20-8940-9CDB983ECD32}
+		{735D5ADC-94F2-4931-A131-E4052663D57D} = {4EF1A27F-C31A-4D20-8940-9CDB983ECD32}
 	EndGlobalSection
 EndGlobal
