@@ -7,8 +7,8 @@
     <ProjectGuid>{735D5ADC-94F2-4931-A131-E4052663D57D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SFA.DAS.NotificationService.Infrastructure.Test</RootNamespace>
-    <AssemblyName>SFA.DAS.NotificationService.Infrastructure.Test</AssemblyName>
+    <RootNamespace>SFA.DAS.NotificationService.Infrastructure.UnitTests</RootNamespace>
+    <AssemblyName>SFA.DAS.NotificationService.Infrastructure.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
